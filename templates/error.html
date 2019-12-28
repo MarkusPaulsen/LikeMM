@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>An error appeared</title>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('home_page') }}">Logout</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    </nav>
+    <div class="container text-center bg-secondary">
+        <h1>Error in: {{function}}</h1>
+    </div>
+    <div class="container text-center bg-secondary">
+        <h1>{{error_type}}</h1>
+    </div>
+    <div class="container text-center bg-secondary">
+        <p>{{error}}</p>
+    </div>
+{% endblock %}

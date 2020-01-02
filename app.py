@@ -9,7 +9,12 @@ from APIs.MongoDBAPI import MongoDBAPI
 from APIs.BillboardAPI import BillboardAPI
 from Model.Artist import Artist
 from Model.Track import Track
-from Model.User import User
+from Controller.HomePageController import HomePageController
+from Controller.StatusPageController import StatusPageController
+from Controller.MusicPageController import MusicPageController
+from Controller.MoviePageController import MoviePageController
+from Controller.ErrorPageController import ErrorPageController
+from Controller.UserEntryController import UserEntryController
 
 facebook_api = FacebookAPI()
 mongo_db_api = MongoDBAPI()
@@ -21,107 +26,40 @@ app = Flask(__name__)
 
 @app.route("/")
 def home_page():
-    try:
-        webpage = render_template("home.html")
-        return webpage
-    except Exception as e:
-        webpage = render_template(
-            "error.html",
-            function="home_page()",
-            error_type=str(type(e)),
-            error=str(e)
-        )
-        return webpage
-
-
-@app.route("/facebookLogin")
-def facebook_login_page():
-    try:
-        webpage = redirect(location=facebook_api.get_facebook_login_page(state=random.randint(0, 1000000)), code=302)
-        return webpage
-    except Exception as e:
-        webpage = render_template("error.html", function="facebook_login_page()", error_type=str(type(e)),
-                                  error=str(e))
-        return webpage
-
+    home_page_controller: HomePageController = HomePageController()
+    return home_page_controller.render()
 
 @app.route("/facebookLoginReply")
 def facebook_login_reply_page():
-    try:
+    user_entry_controller: UserEntryController = UserEntryController(code=request.args.get("code"))
+    return user_entry_controller.render()
 
-        # <editor-fold desc="1st Facebook API call">
-        generate_access_token_success, access_token = facebook_api.generate_access_token(
-            code=request.args.get("code")
-        )
-        # </editor-fold>
 
-        if generate_access_token_success:
+@app.route("/Status/<fid>")
+def status_page(fid):
+    status_page_controller: StatusPageController = StatusPageController(fid)
+    return status_page_controller.render()
 
-            # <editor-fold desc="MongoDB store">
-            mongo_db_api.update_credentials_db(
-                selection={"name": "facebook"},
-                entry_to_insert={"name": "facebook", "token": access_token}
-            )
-            # </editor-fold>
 
-            # <editor-fold desc="MongoDB query">
-            access_token: str = list(map(
-                lambda credentials: credentials["token"],
-                mongo_db_api.query_credentials_db({"name": "facebook"}, {"token": 1})
-            ))[0]
-            # </editor-fold>
+@app.route("/Music/<fid>")
+def music_page(fid):
+    music_page_controller: MusicPageController = MusicPageController(fid)
+    return music_page_controller.render()
 
-            # <editor-fold desc="2nd Facebook API call">
-            generate_user_data_success, user_data = facebook_api.generate_user_data(
-                fields="id,name, email",
-                access_token=access_token
-            )
-            # </editor-fold>
 
-            if generate_user_data_success:
+@app.route("/Movie/<fid>")
+def movie_page(fid):
+    movie_page_controller: MoviePageController = MoviePageController(fid)
+    return movie_page_controller.render()
 
-                # <editor-fold desc="Data processing">
-                user = User(input_data=user_data)
-                # </editor-fold>
 
-                # <editor-fold desc="MongoDB store">
-                mongo_db_api.insert_user_db(entry_to_insert={
-                    "id": user.id,
-                    "name": user.name,
-                    "email": user.email
-                })
-                # </editor-fold>
+@app.route("/Error/<fid>")
+def error_page(fid):
+    error_page_controller: ErrorPageController = ErrorPageController(fid)
+    return error_page_controller.render()
 
-                webpage = redirect(
-                    location="/process/" + str(user_data["id"]) + "/artists",
-                    code=302
-                )
-                return webpage
-            else:
-                webpage = render_template(
-                    "error.html",
-                    function="facebook_login_reply_page()",
-                    error_type="",
-                    error="User data of Facebook cannot be generated"
-                )
-                return webpage
-        else:
-            webpage = render_template(
-                "error.html",
-                function="facebook_login_reply_page()",
-                error_type="",
-                error="Access token for Facebook cannot be generated"
-            )
-            return webpage
 
-    except Exception as e:
-        webpage = render_template(
-            "error.html",
-            function="facebook_login_reply_page()",
-            error_type=str(type(e)),
-            error=str(e)
-        )
-        return webpage
+
 
 
 @app.route("/process/<idnr>/<target>")
@@ -198,7 +136,7 @@ def process_page(idnr, target):
                 webpage = redirect(location="/artists/" + idnr, code=302)
                 return webpage
             else:
-                webpage = render_template("error.html", function="process_page(idnr)", error_type="",
+                webpage = render_template("ErrorPageView.html", function="process_page(idnr)", error_type="",
                                           error="Music of Facebook cannot be generated")
                 return webpage
 
@@ -445,7 +383,7 @@ def process_page(idnr, target):
             return webpage
 
     except Exception as e:
-        webpage = render_template("error.html", function="process_page(idnr, target)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="process_page(idnr, target)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 
@@ -479,7 +417,7 @@ def artists_page(idnr):
         webpage = render_template("artists.html", idnr=idnr, artist_list=artist_list, user_name=user_name)
         return webpage
     except Exception as e:
-        webpage = render_template("error.html", function="artists_page(idnr)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="artists_page(idnr)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 
@@ -514,7 +452,7 @@ def suggestion_page(idnr):
         webpage = render_template("suggestions.html", idnr=idnr, suggestions=suggestions, user_name=user_name)
         return webpage
     except Exception as e:
-        webpage = render_template("error.html", function="suggestion_page(idnr)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="suggestion_page(idnr)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 
@@ -549,7 +487,7 @@ def top10_page(idnr):
         webpage = render_template("top10.html", idnr=idnr, top10_list=top10_list, user_name=user_name)
         return webpage
     except Exception as e:
-        webpage = render_template("error.html", function="suggestion_page(idnr)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="suggestion_page(idnr)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 
@@ -584,7 +522,7 @@ def billboard_page(idnr):
         webpage = render_template("billboard.html", idnr=idnr, billboard_list=billboard_list, user_name=user_name)
         return webpage
     except Exception as e:
-        webpage = render_template("error.html", function="suggestion_page(idnr)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="suggestion_page(idnr)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 
@@ -602,7 +540,7 @@ def delete_all_page():
         webpage = redirect(location="/", code=302)
         return webpage
     except Exception as e:
-        webpage = render_template("error.html", function="delete_all_page(idnr)", error_type=str(type(e)),
+        webpage = render_template("ErrorPageView.html", function="delete_all_page(idnr)", error_type=str(type(e)),
                                   error=str(e))
         return webpage
 

@@ -1,0 +1,30 @@
+{% extends 'BasePageView.html' %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+
+{% block body %}
+
+    <!--<editor-fold desc="Nav Bar">-->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="text-center">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                     class="d-inline-block align-top" alt="">
+            </a>
+        </div>
+    </nav>
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Body">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm text-center">
+                <a class="btn btn-primary btn-lg active" role="button" href="{{ facebook_login_page_link }}">Login with
+            Facebook</a>
+            </div>
+        </div>
+    </div>
+    <!--</editor-fold>-->
+{% endblock %}

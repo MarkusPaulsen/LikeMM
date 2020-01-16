@@ -1,0 +1,129 @@
+{% extends 'BasePageView.html' %}
+
+{% block head %}
+    <title>Status</title>
+{% endblock %}
+
+{% block body %}
+
+    <!--<editor-fold desc="Nav Bar">-->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="text-center">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                     class="d-inline-block align-top" alt="">
+            </a>
+        </div>
+    </nav>
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Body">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm overflow-auto">
+                <h1>Your Artists</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name</b>
+                        </th>
+                        <th>
+                            <b>Image</b>
+                        </th>
+                        <th>
+                            <b>Listeners on LastFM</b>
+                        </th>
+                        <th>
+                            <b>Playcount on LastFM</b>
+                        </th>
+                        <th>
+                            <b>Followers on Spotify</b>
+                        </th>
+                        <th>
+                            <b>Popularity on Spotify</b>
+                        </th>
+                        <th>
+                            <b>Find on LastFM</b>
+                        </th>
+                        <th>
+                            <b>Find on Spotify</b>
+                        </th>
+                        <th>
+                            <b>Open in Spotify</b>
+                        </th>
+                    </tr>
+                    {% for artist in artistList %}
+                        <tr>
+                            <th>
+                                {{ artist.name }}
+                            </th>
+                            <th>
+                                <img src="{{ artist.spotify_image }}" alt="{{ artist.spotify_image }} width="100" height="100"">
+                            </th>
+                            <th>
+                                {{ artist.lastfm_listeners }}
+                            </th>
+                            <th>
+                                {{ artist.lastfm_playcount }}
+                            </th>
+                            <th>
+                                {{ artist.spotify_followers }}
+                            </th>
+                            <th>
+                                {{ artist.spotify_popularity }}
+                            </th>
+                            <th>
+                                <a href="{{ artist.lastfm_url }}">LastFM</a>
+                            </th>
+                            <th>
+                                <a href="{{ artist.spotify_url }}">Spotify</a>
+                            </th>
+                            <th>
+                                <a href="{{ artist.spotify_uri }}">Listen</a>
+                            </th>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-sm">
+                <h1>Your Profile</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name: {{ userName }}</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>E-Mail: {{ userEmail }}</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <img src="{{ userPicture }}" alt="{{ userPicture }}" width="100%">
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm">
+                <h1>Your Movies</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name</b>
+                        </th>
+                    </tr>
+                    {% for movie in movieList %}
+                        <tr>
+                            <th>
+                                {{ movie }}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--</editor-fold>-->
+{% endblock %}

@@ -10,7 +10,7 @@ from Model.MusicTag import MusicTag
 class Artist:
 
     # <editor-fold desc="Constructor">
-    def __init__(self, lastfm_input: dict, spotify_input: dict):
+    def __init__(self, lastfm_input: dict, spotify_input: dict, billboard_input:dict):
         self.name: str = lastfm_input["name"]
 
         self.lastfm_url: str = lastfm_input["url"]

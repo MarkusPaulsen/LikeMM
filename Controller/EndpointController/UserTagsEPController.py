@@ -3,28 +3,21 @@ from APIs.MongoDBAPI import MongoDBAPI
 
 class UserTagsEPController:
 
-    def __init__(self,fid):
+    def __init__(self, fid):
         self.fid = fid
         self.mongo_db_api: MongoDBAPI = MongoDBAPI()
-        self.user_data = None
-        self.artist_list = None
-        self.tag_list = None
+        self.tag_list = []
 
-    def load_user_data(self):
-        self.user_data = list(self.mongo_db_api.query_user_db({
+    def load_tag_list(self):
+        query_element = list(self.mongo_db_api.query_artist_db({
             "id": self.fid
         }, {
-            "music": 1
-        }))[0]
-
-    def generate_tag_list(self):
-        self.artist_list = list(map(
-            lambda entry: entry["name"],
-            self.user_data["music"]["data"]
-        ))
-
-    def generate_tag_list(self):
-        self.tag_list = list(map())
+            "lastfm_tags": 1
+        }))
+        tag_list_of_lists = list(map(lambda tag_list: tag_list["lastfm_tags"], query_element))
+        tag_list_not_unique = [tag for tag_list in tag_list_of_lists for tag in tag_list]
+        self.tag_list = list(set(tag_list_not_unique))
 
     def json(self):
-        pass
+        self.load_tag_list()
+        return self.tag_list

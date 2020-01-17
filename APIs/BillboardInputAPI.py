@@ -44,8 +44,6 @@ class BillboardInputAPI:
             print(e)
             return None
 
-
-
     def get_lastfm_input_artist(self, artist_name: str) -> Optional[dict]:
         try:
             artist100_entries = billboard.ChartData('artist-100').entries

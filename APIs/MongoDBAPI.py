@@ -9,7 +9,9 @@ class MongoDBAPI:
 
     # <editor-fold desc="Constructor">
     def __init__(self):
-        self.mongo_db_client = pymongo.MongoClient("mongodb://localhost:27017/")
+        self.mongo_pass: str = os.environ["mongo_pass"]
+        self.mongo_db_client = pymongo.MongoClient("mongodb+srv://HiItsLuis:" + mongo_pass + "@fermovies-kdmcj.mongodb.net/test?retryWrites=true&w=majority")
+        #self.mongo_db_client = pymongo.MongoClient("mongodb://localhost:27017/")
         if "SNLLAB1DB" in self.mongo_db_client.list_database_names():
             self.sn_lab1_db = self.mongo_db_client["SNLLAB1DB"]
         else:

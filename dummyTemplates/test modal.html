@@ -1,0 +1,173 @@
+<!DOCTYPE html>     
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">    
+        <!-- <link rel="stylesheet" href="styles/debug.css"> -->
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+        <title>LikeMM - Status</title>
+        <style>
+
+            .center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .emoticon { white-space: pre; }          
+        </style>
+    </head>
+    <body>
+		<!-- .hero -->
+		<section class="hero">
+			<div class="hero-body">
+				<div class="container">
+                    <div class="columns">
+                        <div class="column center">
+                            <button class="button is-medium is-primary">
+                                <span class="icon">
+                                    <i class="fa fa-home"></i>
+                                </span>
+                                <span>Home</span>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <figure class="image center">
+                                <img src="../images/likemm-logo.png" style="max-width: 160px;">
+                            </figure>
+                        </div>
+                        <div class="column center">
+                            
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</section>
+        <!-- /.hero -->
+
+        <!-- .section -->
+		<section class="section has-background-light">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <article class="media notification is-info">
+							<figure class="media-left">
+								<span class="icon is-medium">
+									<i class="fa fa-2x fa-headphones"></i>
+								</span>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<h1 class="title is-size-4">Your Artists</h1>
+									<p class="is-size-5">
+										This column will show your liked artists. <br>
+										Image and name. <span class="emoticon">ᕕ( ᐛ )ᕗ</span>
+									</p>
+								</div>
+							</div>
+                        </article>
+                    </div>
+                    <div class="column">
+						<article class="media notification is-primary">
+							<figure class="media-left">
+								<span class="icon is-medium">
+									<i class="fas fa-2x fa-user"></i>
+								</span>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<h1 class="title is-size-4">Your Profile</h1>
+									<p class="is-size-5">
+										This column will show your facebook profile. <br>
+										Image and name. <span class="emoticon">⦤(^ー^)⦥</span>
+									</p>
+								</div>
+							</div>
+						</article>
+					</div>
+					
+                    <div class="column is-3">
+                        <article class="media notification is-warning">
+                            <div class="card is-shady">
+                                <div class="card-image " >
+                                    <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
+                                        <img src="https://bulma.io/images/placeholders/480x640.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content has-text-centered">
+                                <div class="content">
+                                    <b>Movie Title</b>
+                                    <br>
+                                    <button class="button is-primary is-outlined is-link modal-button" data-target="modal-card" style="margin-top: 5px">
+                                        <span class="icon is-small">
+                                          <i class="fas fa-eye"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                        </article>  
+                    </div>
+                </div>
+                
+            </div>
+		</section>
+        <!-- /.section --> 
+
+        <!-- .footer -->
+        <footer class="footer has-background-white">
+            <div class="content has-text-centered">
+              <p>
+                <strong>LikeMM</strong>, project for Social Networks course. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+              </p>
+            </div>
+        </footer>
+        <!-- /.footer --> 
+
+        <!--  ===============
+    HERE BE MODALS style="z-index: 100;"
+    ===============  -->
+    <!-- 3dFlipVertical card tiny -->
+    <div id="modal-card" class="modal modal-fx-3dSlit">
+        <div class="modal-background"></div>
+          <div class="modal-content is-tiny">		
+              <!-- content -->
+              <div class="card">
+                <!-- <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="https://source.unsplash.com/6Ticnhs1AG0" alt="Placeholder image">
+                  </figure>
+                </div> -->
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <figure  class="image is-48x48">
+                        <img class="is-rounded"src="http://www.radfaces.com/images/avatars/linda-barret.jpg" alt="linda barret avatar">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <p class="title is-4">Jane Doe</p>
+                      <p class="subtitle is-6">@jane_doe</p>
+                    </div>
+                  </div>
+                  <div class="content">
+                    222Laum Ipsum junkah potatoes bookin' it. Moosetown rig up I'm tellin' you way up north bookin' it can't get theyah from heeyah native bean suppah whawf Powrtland Museum of Aht, back woods hawsun around the pit mummah Yessah, mummah muckle riyht on'ta her
+                    <a>@bulmaio</a>.
+                    <a href="#">#css</a>
+                    <a href="#">#responsive</a>
+                    <br>
+                    <time datetime="2018-02-02">12:45 AM - 20 June 2018</time>
+                  </div>
+                </div>
+              </div>
+              <!-- end content -->      
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>		
+      </div><!-- end tiny modal card -->
+      <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+    </body>
+</html>

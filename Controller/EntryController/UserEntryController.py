@@ -9,7 +9,7 @@ class UserEntryController:
 
     def __init__(self, code):
         self.facebook_api: FacebookAPI = FacebookAPI()
-        self.mongo_db_api: MongoDBAPI = MongoDBAPI()
+        self.mongodb_api: MongoDBAPI = MongoDBAPI()
         self.code: str = code
         self.user_data: dict = {
             "access_token": None,
@@ -36,7 +36,7 @@ class UserEntryController:
             self.user_data["movies"] = facebook_data["movies"]
 
     def check_user_not_registered(self) -> bool:
-        user_list: list = list(self.mongo_db_api.query_user_db(
+        user_list: list = list(self.mongodb_api.query_user_db(
             selection={"id": self.user_data["id"]},
             projection={"id": self.user_data["id"]}
         ))
@@ -44,11 +44,8 @@ class UserEntryController:
         return is_user_registered
 
     def register_user(self):
-        self.user_data["artistProcessingFinished"] = False
-        self.user_data["musicProcessingFinished"] = False
-        self.user_data["movieProcessingFinished"] = False
-        self.user_data["filmsProcessingFinished"] = False
-        self.mongo_db_api.update_user_db(
+        self.user_data["processingFinished"] = False
+        self.mongodb_api.update_user_db(
             selection=None,
             update=self.user_data
         )

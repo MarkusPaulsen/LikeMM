@@ -1,129 +1,164 @@
 {% extends 'BasePageView.html' %}
 
 {% block head %}
-    <title>Status</title>
+    <title>LikeMM - Dashboard</title>
 {% endblock %}
 
 {% block body %}
+    <!-- .hero -->
+    <section class="hero">
+			<div class="hero-body">
+				<div class="container">
+                    <div class="columns">
+                        <div class="column center">
+                            <button class="button is-medium is-info">
+                                <span class="icon">
+                                    <i class="fa fa-music"></i>
+                                </span>
+                                <span>Music</span>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <figure class="image center">
+                                <img src="../static/likemm-logo.png" style="max-width: 160px;">
+                            </figure>
+                        </div>
+                        <div class="column center">
+                            <button class="button is-medium is-warning">
+                                <span class="icon">
+                                    <i class="fa fa-video"></i>
+                                </span>
+                                <span>Movies</span>
+                            </button>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</section>
+        <!-- /.hero -->
 
-    <!--<editor-fold desc="Nav Bar">-->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="text-center">
-            <a class="navbar-brand" href="#">
-                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                     class="d-inline-block align-top" alt="">
-            </a>
-        </div>
-    </nav>
-    <!--</editor-fold>-->
-
-    <!--<editor-fold desc="Body">-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm overflow-auto">
-                <h1>Your Artists</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name</b>
-                        </th>
-                        <th>
-                            <b>Image</b>
-                        </th>
-                        <th>
-                            <b>Listeners on LastFM</b>
-                        </th>
-                        <th>
-                            <b>Playcount on LastFM</b>
-                        </th>
-                        <th>
-                            <b>Followers on Spotify</b>
-                        </th>
-                        <th>
-                            <b>Popularity on Spotify</b>
-                        </th>
-                        <th>
-                            <b>Find on LastFM</b>
-                        </th>
-                        <th>
-                            <b>Find on Spotify</b>
-                        </th>
-                        <th>
-                            <b>Open in Spotify</b>
-                        </th>
-                    </tr>
-                    {% for artist in artistList %}
-                        <tr>
-                            <th>
-                                {{ artist.name }}
-                            </th>
-                            <th>
-                                <img src="{{ artist.spotify_image }}" alt="{{ artist.spotify_image }} width="100" height="100"">
-                            </th>
-                            <th>
-                                {{ artist.lastfm_listeners }}
-                            </th>
-                            <th>
-                                {{ artist.lastfm_playcount }}
-                            </th>
-                            <th>
-                                {{ artist.spotify_followers }}
-                            </th>
-                            <th>
-                                {{ artist.spotify_popularity }}
-                            </th>
-                            <th>
-                                <a href="{{ artist.lastfm_url }}">LastFM</a>
-                            </th>
-                            <th>
-                                <a href="{{ artist.spotify_url }}">Spotify</a>
-                            </th>
-                            <th>
-                                <a href="{{ artist.spotify_uri }}">Listen</a>
-                            </th>
-
-                        </tr>
-                    {% endfor %}
-                </table>
+        <!-- .section -->
+		<section class="section has-background-light">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <article class="media notification is-info">
+							<figure class="media-left">
+								<span class="icon is-medium">
+									<i class="fa fa-2x fa-headphones"></i>
+								</span>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<h1 class="title is-size-4">Your Artists</h1>
+									<p class="is-size-5">
+										This column will show your liked artists. <br>
+										Image and name are the minimun variables required <span class="emoticon">ᕕ( ᐛ )ᕗ</span>
+									</p>
+								</div>
+                            </div>
+                        </article>
+                        {% for artist in artistList %}
+                            <article class="media notification is-info">
+                                <figure class="media-left">
+                                  <p class="image is-128x128">
+                                    <img src="{{ artist.spotify_image }}">
+                                  </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>Name:</strong> <small>{{ artist.name }}</small>
+                                        </p>
+                                        <p>
+                                            <strong><a href="{{ artist.lastfm_url }}" target="_blank">LastFM:</a></strong>
+                                            <br/>
+                                            <small>Listeners: {{ artist.lastfm_listeners }}</small>
+                                            <br/>
+                                            <small>Playcount: {{ artist.lastfm_playcount }}</small>
+                                        </p>
+                                        <p>
+                                            <strong><a href="{{ artist.spotify_url }}" target="_blank">Spotify:</a></strong>
+                                            <br/>
+                                            <small>Popularity: {{ artist.spotify_popularity }}</small>
+                                            <br/>
+                                            <small><a href="{{ artist.spotify_uri }}" target="_blank">Listen now</a></small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                    <div class="column">
+						<article class="notification is-primary has-text-centered">
+                            <div class="profile-image center">
+                                <figure class="center image avatar is-128x128">
+                                    <img class="is-rounded" src="{{ userPicture }}">
+                                </figure>
+                            </div>
+                            <br>
+                            <div class="profile-content">
+                                <h1 class="title is-size-4 has">Welcome {{ userName }} ({{ userEmail }})</h1>
+                                <p class="is-size-5">
+                                    This column will show your facebook profile. <br>
+                                    <span class="emoticon">⦤(^ー^)⦥</span>
+                                </p>
+                            </div>
+						</article>
+					</div>
+					<div class="column">
+						<article class="media notification is-warning">
+							<figure class="media-left">
+								<span class="icon is-medium">
+									<i class="fas fa-2x fa-film"></i>
+								</span>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<h1 class="title is-size-4">Your Movies</h1>
+									<p class="is-size-5">
+										This column will show your liked movies. <br>
+										Image and name are the minimun variables required. <span class="emoticon">٩(^ᴗ^)۶</span>
+									</p>
+								</div>
+							</div>
+                        </article>
+                        {% for movie in movieList %}
+                            <article class="media notification is-warning">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>Title:</strong> <small>{{ movie.title }}</small>
+                                        </p>
+                                        <p>
+                                            <strong><a href="{{ movie.themoviedb_url }}" target="_blank">The Movie DB:</a></strong>
+                                            <br/>
+                                            <small>Budget: {{ movie.themoviedb_budget }}</small>
+                                            <br/>
+                                            <small>Popularity: {{ movie.themoviedb_popularity}}</small>
+                                            <br/>
+                                            <small>Release Date: {{ movie.themoviedb_release_date }}</small>
+                                            <br/>
+                                            <small>Revenue: {{ movie.themoviedb_revenue }}</small>
+                                            <br/>
+                                            <small>Runtime: {{ movie.themoviedb_runtime }}</small>
+                                            <br/>
+                                            <small>Status: {{ movie.themoviedb_status }}</small>
+                                            <br/>
+                                            <small>Vote Average: {{ movie.themoviedb_vote_average }}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <figure class="media-right">
+                                    <p class="image is-128x128">
+                                      <img src="{{ movie.themoviedb_backdrop_path }}">
+                                    </p>
+                                  </figure>
+                            </article>
+                        {% endfor %}
+					</div>
+                </div>
             </div>
-            <div class="col-sm">
-                <h1>Your Profile</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name: {{ userName }}</b>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <b>E-Mail: {{ userEmail }}</b>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <img src="{{ userPicture }}" alt="{{ userPicture }}" width="100%">
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-sm">
-                <h1>Your Movies</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name</b>
-                        </th>
-                    </tr>
-                    {% for movie in movieList %}
-                        <tr>
-                            <th>
-                                {{ movie }}
-                            </th>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    </div>
-    <!--</editor-fold>-->
+		</section>
+        <!-- /.section -->
 {% endblock %}

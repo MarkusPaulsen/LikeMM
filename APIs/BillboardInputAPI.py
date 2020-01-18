@@ -1,5 +1,7 @@
+# <editor-fold desc="Libaries">
 from typing import *
 import billboard
+# </editor-fold>
 
 
 # noinspection PyMethodMayBeStatic

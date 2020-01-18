@@ -4,6 +4,7 @@ import logging
 
 from APIs.MongoDBAPI import MongoDBAPI
 from Controller.FactoryController.ArtistFactoryController import ArtistFactoryController
+from Controller.FactoryController.MovieFactoryController import MovieFactoryController
 
 
 class StatusPageController:
@@ -12,23 +13,24 @@ class StatusPageController:
     def __init__(self, fid):
         self.fid: str = fid
         self.mongodb_api: MongoDBAPI = MongoDBAPI()
-        self.artist_factory: ArtistFactoryController = ArtistFactoryController()
+        self.artist_factory_controller: ArtistFactoryController = ArtistFactoryController()
+        self.movie_factory_controller: MovieFactoryController = MovieFactoryController()
         self.user_data: dict = None
         self.name: str = None
         self.email: str = None
         self.picture: str = None
         self.artist_name_list: List[str] = None
         self.artist_list: List[dict] = None
-        self.movie_name_list = None
-        self.movie_list = None
+        self.movie_name_list: List[str] = None
+        self.movie_list: List[dict] = None
 
     # </editor-fold>
 
     # <editor-fold desc="Handle User Data">
     def load_user_data(self):
-        query_element = list(self.mongodb_api.query_user_db({
-            "id": self.fid
-        }, None))
+        query_element = list(self.mongodb_api.query_user_db(
+            selection={"id": self.fid},
+            projection=None))
         self.user_data = query_element[0]
 
     # </editor-fold>
@@ -41,66 +43,61 @@ class StatusPageController:
 
     # </editor-fold>
 
-    # <editor-fold desc="Handle Artist List">
-    def store_artist_list(self):
+    # <editor-fold desc="Handle Lists">
+    def store_lists(self):
         self.artist_name_list = list(map(
             lambda entry: entry["name"],
             self.user_data["music"]["data"]
         ))
-        self.artist_list = self.artist_factory.create_artists(self.artist_name_list)
+        self.movie_name_list = list(map(
+            lambda entry: entry["name"],
+            self.user_data["movies"]["data"]
+        ))
+
+        self.artist_list = list(map(
+            lambda inner_artist: inner_artist.json(),
+            self.artist_factory_controller.create_artists(artist_name_list=self.artist_name_list)
+        ))
+        self.movie_list = list(map(
+            lambda inner_movie: inner_movie.json(),
+            self.movie_factory_controller.create_movies(movie_name_list=self.movie_name_list)
+        ))
 
         for artist in self.artist_list:
-            artist_list_json: dict = artist.json()
-            artist_list_json["id"] = self.user_data["id"]
-            if len(list(self.mongodb_api.query_artist_db(
-                    {"id": self.fid, "name": artist_list_json["name"]},
-                    None
-            ))) == 0:
-                self.mongodb_api.update_artist_db(
-                    selection=None,
-                    update=artist_list_json
-                )
-            else:
-                self.mongodb_api.update_artist_db(
-                    selection={"id": self.fid, "name": artist_list_json["name"]},
-                    update=artist_list_json
-                )
-        self.user_data["artistProcessingFinished"] = True
+            artist["id"] = self.user_data["id"]
+            self.mongodb_api.update_artist_db(
+                selection=None,
+                update=artist
+            )
+        for movie in self.movie_list:
+            movie["id"] = self.user_data["id"]
+            self.mongodb_api.update_movie_db(
+                selection=None,
+                update=movie
+            )
+        self.user_data["processingFinished"] = True
         self.mongodb_api.update_user_db(
             selection={"id": self.user_data["id"]},
             update=self.user_data
         )
 
-    def load_artist_list(self):
-        self.artist_list = list(self.mongodb_api.query_artist_db({
-            "id": self.fid
-        }, None))
-
-    def delete_artist_list(self):
-        self.mongodb_api.delete_artist_db({
-            "id": self.fid
-        })
-
-    # </editor-fold>
-
-    # <editor-fold desc="Handle Movie List">
-
-    def store_movie_list(self):
-        self.movie_list = list(map(
-            lambda entry: entry["name"],
-            self.user_data["movies"]["data"]
+    def load_lists(self):
+        self.artist_list = list(self.mongodb_api.query_artist_db(
+            selection={"id": self.fid},
+            projection=None
+        ))
+        self.movie_list = list(self.mongodb_api.query_movie_db(
+            selection={"id": self.fid},
+            projection=None
         ))
 
-    def load_movie_list(self):
-        self.movie_list = list(map(
-            lambda entry: entry["name"],
-            self.user_data["movies"]["data"]
-        ))
-
-    def delete_movie_list(self):
-        self.mongodb_api.delete_movie_db({
-            "id": self.fid
-        })
+    def delete_lists(self):
+        self.mongodb_api.delete_artist_db(
+            delete={"id": self.fid}
+        )
+        self.mongodb_api.delete_movie_db(
+            delete={"id": self.fid}
+        )
 
     # </editor-fold>
 
@@ -109,14 +106,16 @@ class StatusPageController:
         try:
             self.load_user_data()
             self.generate_profile_data()
-            if not self.user_data["artistProcessingFinished"]:
-                self.store_artist_list()
-            self.load_artist_list()
-            if not self.user_data["movieProcessingFinished"]:
-                self.store_movie_list()
-            self.load_movie_list()
+            if not self.user_data["processingFinished"]:
+                self.delete_lists()
+                self.store_lists()
+            else:
+                self.load_lists()
 
+            print("Artist type: " + str(type(self.artist_list[0])))
             self.artist_list.sort(key=lambda artist: artist["name"])
+            self.movie_list.sort(key=lambda movie: movie["title"])
+
             webpage = render_template(
                 "StatusPageView.html",
                 userName=self.name,

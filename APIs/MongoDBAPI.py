@@ -4,7 +4,7 @@ import pymongo
 # </editor-fold>
 
 
-# noinspection PyMethodMayBeStatic,PyUnresolvedReferences
+# noinspection PyUnresolvedReferences
 class MongoDBAPI:
 
     # <editor-fold desc="Constructor">
@@ -255,11 +255,11 @@ class MongoDBAPI:
 
     # </editor-fold>
 
-    # <editor-fold desc="LastFM Chart DB">
-    def get_last_fm_chart_db(self) -> Optional[pymongo.collection.Collection]:
+    # <editor-fold desc="LastFM DB">
+    def get_lastfm_db(self) -> Optional[pymongo.collection.Collection]:
         try:
-            if "TopLastFM" in self.sn_lab1_db.list_collection_names():
-                output: Optional[pymongo.collection.Collection] = self.sn_lab1_db["TopLastFM"]
+            if "LastFM" in self.sn_lab1_db.list_collection_names():
+                output: Optional[pymongo.collection.Collection] = self.sn_lab1_db["LastFM"]
                 return output
             else:
                 return None
@@ -269,20 +269,20 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def update_last_fm_chart_db(self, selection: Optional[dict], update: Optional[dict])\
+    def update_lastfm_db(self, selection: Optional[dict], update: Optional[dict])\
             -> Optional[pymongo.results.InsertOneResult]:
         try:
             if update is None:
                 return None
             else:
                 if selection is None:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_last_fm_chart_db().update_one(
+                    output: Optional[pymongo.results.InsertOneResult] = self.get_lastfm_db().update_one(
                         update,
                         {"$set": update},
                         upsert=True
                     )
                 else:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_last_fm_chart_db().update_one(
+                    output: Optional[pymongo.results.InsertOneResult] = self.get_lastfm_db().update_one(
                         selection,
                         {"$set": update},
                         upsert=False
@@ -294,9 +294,9 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def delete_last_fm_chart_db(self, delete: dict):
+    def delete_lastfm_db(self, delete: dict):
         try:
-            output = self.get_last_fm_chart_db().delete_many(
+            output = self.get_lastfm_db().delete_many(
                 delete
             )
             return output
@@ -306,23 +306,23 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def query_last_fm_chart_db(self, selection: Optional[dict], projection: Optional[dict]):
+    def query_lastfm_db(self, selection: Optional[dict], projection: Optional[dict]):
         try:
             if selection is None:
                 if projection is None:
-                    output = self.get_last_fm_chart_db().find()
+                    output = self.get_lastfm_db().find()
                 else:
-                    output = self.get_last_fm_chart_db().find(
+                    output = self.get_lastfm_db().find(
                         {},
                         selection
                     )
             else:
                 if projection is None:
-                    output = self.get_last_fm_chart_db().find(
+                    output = self.get_lastfm_db().find(
                         selection
                     )
                 else:
-                    output = self.get_last_fm_chart_db().find(
+                    output = self.get_lastfm_db().find(
                         selection,
                         projection
                     )
@@ -334,11 +334,11 @@ class MongoDBAPI:
             return None
     # </editor-fold>
 
-    # <editor-fold desc="Music DB">
-    def get_music_db(self) -> Optional[pymongo.collection.Collection]:
+    # <editor-fold desc="TheMovieDB DB">
+    def get_themoviedb_db(self) -> Optional[pymongo.collection.Collection]:
         try:
-            if "Music" in self.sn_lab1_db.list_collection_names():
-                output = self.sn_lab1_db["Music"]
+            if "TheMovieDB" in self.sn_lab1_db.list_collection_names():
+                output: Optional[pymongo.collection.Collection] = self.sn_lab1_db["TheMovieDB"]
                 return output
             else:
                 return None
@@ -348,20 +348,20 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def update_music_db(self, selection: Optional[dict], update: Optional[dict])\
+    def update_themoviedb_db(self, selection: Optional[dict], update: Optional[dict]) \
             -> Optional[pymongo.results.InsertOneResult]:
         try:
             if update is None:
                 return None
             else:
                 if selection is None:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_music_db().update_one(
+                    output: Optional[pymongo.results.InsertOneResult] = self.get_themoviedb_db().update_one(
                         update,
                         {"$set": update},
                         upsert=True
                     )
                 else:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_music_db().update_one(
+                    output: Optional[pymongo.results.InsertOneResult] = self.get_themoviedb_db().update_one(
                         selection,
                         {"$set": update},
                         upsert=False
@@ -373,9 +373,9 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def delete_music_db(self, delete: dict):
+    def delete_themoviedb_db(self, delete: dict):
         try:
-            output = self.get_music_db().delete_many(
+            output = self.get_themoviedb_db().delete_many(
                 delete
             )
             return output
@@ -385,181 +385,23 @@ class MongoDBAPI:
             print(e)
             return None
 
-    def query_music_db(self, selection: Optional[dict], projection: Optional[dict]):
+    def query_themoviedb_db(self, selection: Optional[dict], projection: Optional[dict]):
         try:
             if selection is None:
                 if projection is None:
-                    output = self.get_music_db().find()
+                    output = self.get_themoviedb_db().find()
                 else:
-                    output = self.get_music_db().find(
+                    output = self.get_themoviedb_db().find(
                         {},
                         selection
                     )
             else:
                 if projection is None:
-                    output = self.get_music_db().find(
+                    output = self.get_themoviedb_db().find(
                         selection
                     )
                 else:
-                    output = self.get_music_db().find(
-                        selection,
-                        projection
-                    )
-            return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-    # </editor-fold>
-
-    # <editor-fold desc="Top10 DB">
-    def get_top10_db(self) -> Optional[pymongo.collection.Collection]:
-        try:
-            if "Top10" in self.sn_lab1_db.list_collection_names():
-                output = self.sn_lab1_db["Top10"]
-                return output
-            else:
-                return None
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def update_top10_db(self, selection: Optional[dict], update: Optional[dict])\
-            -> Optional[pymongo.results.InsertOneResult]:
-        try:
-            if update is None:
-                return None
-            else:
-                if selection is None:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_top10_db().update_one(
-                        update,
-                        {"$set": update},
-                        upsert=True
-                    )
-                else:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_top10_db().update_one(
-                        selection,
-                        {"$set": update},
-                        upsert=False
-                    )
-                return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def delete_top10_db(self, delete: dict):
-        try:
-            output = self.get_top10_db().delete_many(
-                delete
-            )
-            return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def query_top10_db(self, selection: Optional[dict], projection: Optional[dict]):
-        try:
-            if selection is None:
-                if projection is None:
-                    output = self.get_top10_db().find()
-                else:
-                    output = self.get_top10_db().find(
-                        {},
-                        selection
-                    )
-            else:
-                if projection is None:
-                    output = self.get_top10_db().find(
-                        selection
-                    )
-                else:
-                    output = self.get_top10_db().find(
-                        selection,
-                        projection
-                    )
-            return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-    # </editor-fold>
-
-    # <editor-fold desc="Billboard DB">
-    def get_billboard_db(self) -> Optional[pymongo.collection.Collection]:
-        try:
-            if "Billboard" in self.sn_lab1_db.list_collection_names():
-                output = self.sn_lab1_db["Billboard"]
-                return output
-            else:
-                return None
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def update_billboard_db(self, selection: Optional[dict], update: Optional[dict])\
-            -> Optional[pymongo.results.InsertOneResult]:
-        try:
-            if update is None:
-                return None
-            else:
-                if selection is None:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_billboard_db().update_one(
-                        update,
-                        {"$set": update},
-                        upsert=True
-                    )
-                else:
-                    output: Optional[pymongo.results.InsertOneResult] = self.get_billboard_db().update_one(
-                        selection,
-                        {"$set": update},
-                        upsert=False
-                    )
-                return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def delete_billboard_db(self, delete: dict):
-        try:
-            output = self.get_billboard_db().delete_many(
-                delete
-            )
-            return output
-        except Exception as e:
-            print(type(e))
-            print(e.args)
-            print(e)
-            return None
-
-    def query_billboard_db(self, selection: Optional[dict], projection: Optional[dict]):
-        try:
-            if selection is None:
-                if projection is None:
-                    output = self.get_billboard_db().find()
-                else:
-                    output = self.get_billboard_db().find(
-                        {},
-                        selection
-                    )
-            else:
-                if projection is None:
-                    output = self.get_billboard_db().find(
-                        selection
-                    )
-                else:
-                    output = self.get_billboard_db().find(
+                    output = self.get_themoviedb_db().find(
                         selection,
                         projection
                     )

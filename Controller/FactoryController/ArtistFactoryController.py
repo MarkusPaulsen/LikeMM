@@ -33,12 +33,12 @@ class ArtistFactoryController:
             print(e)
             return None
 
-    def create_artists(self, artist_list: List[str]) -> List[Artist]:
+    def create_artists(self, artist_name_list: List[str]) -> List[Artist]:
         artists_optional_list = list(map(
             lambda artist_name: self.create_artist(
                 artist_name=artist_name
             ),
-            artist_list
+            artist_name_list
         ))
         output = [artist for artist in artists_optional_list if artist is not None]
         return output

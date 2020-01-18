@@ -1,0 +1,153 @@
+<!DOCTYPE html>     
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">    
+        <!-- <link rel="stylesheet" href="styles/debug.css"> -->
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+        <title>LikeMM - Movies</title>
+        <style>
+
+            .center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .emoticon { white-space: pre; }
+
+            .avatar img {
+            padding: 5px;
+            background: #fff;
+            -webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+            box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+            }          
+        </style>
+    </head>
+    <body>
+		<!-- .hero -->
+		<section class="hero">
+			<div class="hero-body">
+				<div class="container">
+                    <div class="columns">
+                        <div class="column center">
+                            <button class="button is-medium is-primary">
+                                <span class="icon">
+                                    <i class="fa fa-home"></i>
+                                </span>
+                                <span>Home</span>
+                            </button>
+                        </div>
+                        <div class="column">
+                            <figure class="image center">
+                                <img src="../images/likemm-logo.png" style="max-width: 160px;">
+                            </figure>
+                        </div>
+                        <div class="column center">
+
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</section>
+        <!-- /.hero -->
+
+        <!-- .section -->
+		<section class="section has-background-light">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-2">
+                        <div class="card is-shady">
+                            <header class="card-header has-background-info has-text-white">
+                                <p class="card-header-title has-text-white">
+                                  #1
+                                </p>
+                                <p class="card-header-icon" aria-label="more options">
+                                  <span class="icon">
+                                    <i class="fa fa-trophy" aria-hidden="true"></i>
+                                  </span>
+                                </p>
+                              </header>
+                            <div class="card-image ">
+                                <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
+                                    <img src="https://bulma.io/images/placeholders/480x640.png" alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="card-content has-text-centered">
+                                <div class="content">
+                                    <b>Movie Title</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+						<article class="media notification is-primary">
+							<figure class="media-left">
+								<span class="icon is-medium">
+									<svg class="svg-inline--fa fa-user fa-w-14 fa-2x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-2x fa-user"></i> -->
+								</span>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<h1 class="title is-size-4">Information about what you like</h1>
+									<p class="is-size-5">
+										On the left you can see the top 10 movies in our database. <br>
+										On the right you'll find your personalized recommendations. <span class="emoticon">⦤(^ー^)⦥</span>
+									</p>
+								</div>
+							</div>
+						</article>
+					</div>
+					<div class="column">
+						<article class="media notification is-warning">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>Recommendation #1</strong> <small>5 stars</small>
+                                        <br>
+                                        Is possible to add a description
+                                    </p>
+                                </div>
+                            </div>
+                            <figure class="media-right">
+                                <p class="image is-128x128">
+                                  <img src="https://bulma.io/images/placeholders/128x128.png">
+                                </p>
+                              </figure>
+                        </article>
+                        <article class="media notification is-warning">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>Recommendation #2</strong> <small>4 stars</small>4                                       <br>
+                                        Is possible to add a description
+                                    </p>
+                                </div>
+                            </div>
+                            <figure class="media-right">
+                                <p class="image is-128x128">
+                                  <img src="https://bulma.io/images/placeholders/128x128.png">
+                                </p>
+                              </figure>
+                        </article>
+					</div>
+                </div>
+            </div>
+		</section>
+        <!-- /.section --> 
+
+        <!-- .footer -->
+        <footer class="footer has-background-white">
+            <div class="content has-text-centered">
+              <p>
+                <strong>LikeMM</strong>, FER University of Zagreb. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+              </p>
+            </div>
+        </footer>
+        <!-- /.footer --> 
+    </body>
+</html>

@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'BasePageView.html' %}
 
-</body>
-</html>
+{% block head %}
+<title>Music</title>
+{% endblock %}
+
+{% block body %}
+
+    <!--<editor-fold desc="Nav Bar">-->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="text-center">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            </a>
+        </div>
+    </nav>
+    <!--</editor-fold>-->
+
+    <!--<editor-fold desc="Body">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h1>Top 50</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name</b>
+                        </th>
+                    </tr>
+                    {% for artist in artistList %}
+                        <tr>
+                            <th>
+                                {{ artist }}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-sm">
+                <h1>Your Profile</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name: {{ userName }}</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>E-Mail: {{ userEmail }}</b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <img src={{ userPicture }}>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm">
+                <h1>Your Movies</h1>
+                <table>
+                    <tr>
+                        <th>
+                            <b>Name</b>
+                        </th>
+                    </tr>
+                    {% for movie in movieList %}
+                        <tr>
+                            <th>
+                                {{ movie }}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--</editor-fold>-->
+{% endblock %}

@@ -1,7 +1,9 @@
 class MusicTag:
 
     # <editor-fold desc="Constructor">
-    def __init__(self, input_data: dict):
-        self.name: str = input_data["name"]
-        self.lastfm_url: str = input_data["url"]
+    def __init__(self, lastfm_input: dict):
+        self.name: str = lastfm_input["name"]
+
+    def json(self):
+        return self.name
     # </editor-fold>

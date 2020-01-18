@@ -1,16 +1,34 @@
 {% extends 'BasePageView.html' %}
 
 {% block head %}
-    <title>Home</title>
+    <title>LikeMM - Login</title>
 {% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('home_page') }}">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
-    <a class="btn btn-primary btn-lg active" role="button" href="{{ facebook_login_page_link }}">Login with Facebook</a>
+    <section class="hero is-fullheight is-primary" >
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <div class="column is-4 is-offset-4">
+
+
+
+                        <div class="box">
+                            <div class="center">
+                                <figure class="login-logo image is-128x128 center">
+                                    <img class="center" src="../static/likemm-logo.png">
+                                </figure>
+                            </div>
+                            <p class="title has-text-black">Welcome!</h3>
+                            <p class="subtitle has-text-black">Please login to proceed.</p>
+                            <a class="button is-large is-info" href="{{ facebook_login_page_link }}">
+                                <span class="icon">
+                                    <i class="fab fa-facebook"></i>
+                                </span>
+                                <span>Login with Facebook</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock %}

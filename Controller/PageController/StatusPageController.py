@@ -108,6 +108,7 @@ class StatusPageController:
             else:
                 self.load_lists()
 
+            print("Artist type: " + str(type(artist_list)))
             self.artist_list.sort(key=lambda artist: artist["name"])
             self.movie_list.sort(key=lambda movie: movie["title"])
 

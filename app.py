@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pprint
 
+from Controller.EndpointController.MusicRecEPController import MusicRecEPController
 from Controller.PageController.HomePageController import HomePageController
 from Controller.PageController.StatusPageController import StatusPageController
 from Controller.PageController.MusicPageController import MusicPageController
@@ -20,10 +21,6 @@ mongodb_api: MongoDBAPI = MongoDBAPI()
 mongodb_api.delete_last_fm_chart_db({})
 for track in lastfm_api.get_lastfm_charts(10):
     mongodb_api.update_last_fm_chart_db(selection=None, update=track.json())
-
-billboard_input_api: BillboardInputAPI = BillboardInputAPI()
-x = billboard_input_api.get_billboard_input_track("a", "s")
-pprint.pprint(x)
 
 app = Flask(__name__)
 
@@ -67,16 +64,21 @@ def error_page(fid):
     return error_page_controller.render()
 
 
-@app.route('/json/lastFMTop/<nr>', methods=['GET'])
-def last_fm_top_ep(nr):
+@app.route('/json/lastFMTop', methods=['GET'])
+def last_fm_top_ep():
     last_fm_top_ep_controller: LastFMTopEPController = LastFMTopEPController()
-    return jsonify(last_fm_top_ep_controller.json(nr))
+    return jsonify(last_fm_top_ep_controller.json())
 
 
 @app.route('/json/userTags/<fid>', methods=['GET'])
-def user_tags(fid):
+def user_tags_ep(fid):
     user_tags_ep_controller: UserTagsEPController = UserTagsEPController(fid)
     return jsonify(user_tags_ep_controller.json())
+
+@app.route('/json/musicRec/<fid>', methods=['GET'])
+def music_rec_ep(fid):
+    music_rec_ep_controller: MusicRecEPController = MusicRecEPController(fid)
+    return jsonify(music_rec_ep_controller.json())
 
 # @app.route("/process/<idnr>/<target>")
 # def process_page(idnr, target):

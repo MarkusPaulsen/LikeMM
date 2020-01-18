@@ -18,9 +18,13 @@ class ArtistFactoryController:
             spotify_input: dict = self.spotify_input_api.get_spotify_input_artist(
                 artist_name=artist_name
             )
+            billboard_input: dict = self.spotify_input_api.get_spotify_input_artist(
+                artist_name=artist_name
+            )
             output: Artist = Artist(
                 lastfm_input=lastfm_input,
-                spotify_input=spotify_input
+                spotify_input=spotify_input,
+                billboard_input=billboard_input
             )
             return output
         except Exception as e:

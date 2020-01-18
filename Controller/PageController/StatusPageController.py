@@ -54,22 +54,26 @@ class StatusPageController:
             self.user_data["movies"]["data"]
         ))
 
-        self.artist_list = self.artist_factory_controller.create_artists(artist_name_list=self.artist_name_list)
-        self.movie_list = self.movie_factory_controller.create_movies(movie_name_list=self.movie_name_list)
+        self.artist_list = list(map(
+            lambda inner_artist: inner_artist.json(),
+            self.artist_factory_controller.create_artists(artist_name_list=self.artist_name_list)
+        ))
+        self.movie_list = list(map(
+            lambda inner_movie: inner_movie.json(),
+            self.movie_factory_controller.create_movies(movie_name_list=self.movie_name_list)
+        ))
 
         for artist in self.artist_list:
-            artist_json: dict = artist.json()
-            artist_json["id"] = self.user_data["id"]
+            artist["id"] = self.user_data["id"]
             self.mongodb_api.update_artist_db(
                 selection=None,
-                update=artist_json
+                update=artist
             )
         for movie in self.movie_list:
-            movie_json: dict = movie.json()
-            movie_json["id"] = self.user_data["id"]
+            movie["id"] = self.user_data["id"]
             self.mongodb_api.update_movie_db(
                 selection=None,
-                update=movie_json
+                update=movie
             )
         self.user_data["processingFinished"] = True
         self.mongodb_api.update_user_db(

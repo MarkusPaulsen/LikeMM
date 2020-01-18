@@ -105,7 +105,8 @@ class StatusPageController:
             if not self.user_data["processingFinished"]:
                 self.delete_lists()
                 self.store_lists()
-            self.load_lists()
+            else:
+                self.load_lists()
 
             self.artist_list.sort(key=lambda artist: artist["name"])
             self.movie_list.sort(key=lambda movie: movie["title"])

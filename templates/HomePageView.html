@@ -5,26 +5,12 @@
 {% endblock %}
 
 {% block body %}
-
-    <!--<editor-fold desc="Nav Bar">-->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="text-center">
-            <a class="navbar-brand" href="#">
-                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                     class="d-inline-block align-top" alt="">
-            </a>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('home_page') }}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
-    <!--</editor-fold>-->
-
-    <!--<editor-fold desc="Body">-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm text-center">
-                <a class="btn btn-primary btn-lg active" role="button" href="{{ facebook_login_page_link }}">Login with
-            Facebook</a>
-            </div>
-        </div>
-    </div>
-    <!--</editor-fold>-->
+    <a class="btn btn-primary btn-lg active" role="button" href="{{ facebook_login_page_link }}">Login with Facebook</a>
 {% endblock %}

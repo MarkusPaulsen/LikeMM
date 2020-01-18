@@ -4,10 +4,6 @@ import os
 import requests
 # </editor-fold>
 
-# <editor-fold desc="Model">
-from Model.Artist import Artist
-# </editor-fold>
-
 
 # noinspection PyMethodMayBeStatic
 class LastFmInputAPI:

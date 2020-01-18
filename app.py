@@ -13,7 +13,6 @@ from Controller.EndpointController.UserTagsEPController import UserTagsEPControl
 
 from APIs.LastFmAPI import LastFmAPI
 from APIs.MongoDBAPI import MongoDBAPI
-from APIs.BillboardInputAPI import BillboardInputAPI
 
 lastfm_api: LastFmAPI = LastFmAPI()
 mongodb_api: MongoDBAPI = MongoDBAPI()

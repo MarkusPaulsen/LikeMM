@@ -38,12 +38,13 @@ class TrackFactoryController:
             print(e)
             return None
 
-    def create_tracks(self, name_artist_list: List[Tuple[str, str]]) -> List[Optional[Track]]:
-        output = list(map(
+    def create_tracks(self, name_artist_list: List[Tuple[str, str]]) -> List[Track]:
+        track_optional_list = list(map(
             lambda track: self.create_track(
                 track_name=track[0],
                 track_artist=track[1]
             ),
             name_artist_list
         ))
+        output = [track for track in track_optional_list if track is not None]
         return output

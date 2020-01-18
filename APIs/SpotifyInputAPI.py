@@ -1,8 +1,9 @@
+# <editor-fold desc="Libaries">
 from typing import *
+import os
 import requests
 import base64
-import os
-import pprint
+# </editor-fold>
 
 
 class SpotifyInputAPI:

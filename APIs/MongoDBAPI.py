@@ -4,7 +4,7 @@ import pymongo
 # </editor-fold>
 
 
-# noinspection PyMethodMayBeStatic,PyUnresolvedReferences
+# noinspection PyUnresolvedReferences
 class MongoDBAPI:
 
     # <editor-fold desc="Constructor">

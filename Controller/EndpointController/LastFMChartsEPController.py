@@ -2,7 +2,7 @@ from typing import *
 from APIs.MongoDBAPI import MongoDBAPI
 
 
-class LastFMTopEPController:
+class LastFMChartsEPController:
     def __init__(self):
         self.mongodb_api = MongoDBAPI()
         self.chart_list = []
@@ -36,7 +36,8 @@ class LastFMTopEPController:
                 "lastfm_playcount": 1,
                 "lastfm_tags": 1,
                 "spotify_popularity": 1
-            }))
+            }
+        ))
         for chart in self.chart_list:
             chart.pop("_id", None)
 

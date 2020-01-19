@@ -7,6 +7,7 @@ from Controller.PageController.MusicPageController import MusicPageController
 from Controller.PageController.MoviePageController import MoviePageController
 from Controller.PageController.ErrorPageController import ErrorPageController
 from Controller.EntryController.UserEntryController import UserEntryController
+from Controller.EntryController.ResetProcessedEntryController import ResetProcessedEntryController
 from Controller.EndpointController.LastFMChartsEPController import LastFMChartsEPController
 from Controller.EndpointController.TheMovieDBChartsEPController import TheMovieDBChartsEPController
 from Controller.EndpointController.UserTagsEPController import UserTagsEPController
@@ -66,6 +67,12 @@ def status_page(fid):
     else:
         status_page_controller: StatusPageController = StatusPageController(fid=fid)
         return status_page_controller.render()
+
+
+@app.route("/RebuildStatus/<fid>", methods=['GET'])
+def resetprocessed_page(fid):
+    resetprocessed_entry_controller: ResetProcessedEntryController = ResetProcessedEntryController(fid=fid)
+    return resetprocessed_entry_controller.render()
 
 
 @app.route("/Music/<fid>", methods=['GET'])

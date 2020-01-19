@@ -9,7 +9,10 @@ class MusicPageController:
 
     def render(self):
         try:
-            webpage = render_template("MusicPageView.html")
+            webpage = render_template(
+                "MusicPageView.html",
+                fid=self.fid
+            )
             return webpage
         except Exception as e:
             logging.exception(e)

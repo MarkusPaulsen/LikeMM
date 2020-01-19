@@ -39,7 +39,7 @@ class StatusPageController:
     def generate_profile_data(self):
         self.name = self.user_data["name"]
         self.email = self.user_data["email"]
-        self.picture = "https://graph.facebook.com/" + self.fid + "/picture?type=square"
+        self.picture = "https://graph.facebook.com/" + self.fid + "/picture?type=normal"
 
     # </editor-fold>
 
@@ -112,6 +112,7 @@ class StatusPageController:
             else:
                 self.load_lists()
 
+            print("Artist type: " + str(type(self.artist_list[0])))
             self.artist_list.sort(key=lambda artist: artist["name"])
             self.movie_list.sort(key=lambda movie: movie["title"])
 
@@ -121,7 +122,8 @@ class StatusPageController:
                 userEmail=self.email,
                 userPicture=self.picture,
                 artistList=self.artist_list,
-                movieList=self.movie_list
+                movieList=self.movie_list,
+                fid=self.fid
             )
             return webpage
         except Exception as e:

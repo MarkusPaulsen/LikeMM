@@ -12,26 +12,24 @@ class ResetProcessedEntryController:
         self.user_data = {}
 
     # <editor-fold desc="Handle User Data">
-    def load_user_data(self):
-        query_element = list(self.mongodb_api.query_user_db(
-            selection={"id": self.fid},
-            projection=None))
-        self.user_data = query_element[0]
-
-    def reset_processed(self):
-        self.user_data["processingFinished"] = False
-        self.mongodb_api.update_user_db(
-            selection={"id": self.fid},
-            update=self.user_data
+    def delete_user_data(self):
+        self.mongodb_api.delete_artist_db(
+            delete={"id": self.fid}
+        )
+        self.mongodb_api.delete_movie_db(
+            delete={"id": self.fid}
+        )
+        self.mongodb_api.delete_user_db(
+            delete={"id": self.fid}
         )
 
     # </editor-fold>
 
     def render(self):
         try:
-            self.reset_processed()
+            self.delete_user_data()
             webpage = redirect(
-                location="/Status/" + str(self.fid),
+                location="/",
                 code=302
             )
             return webpage

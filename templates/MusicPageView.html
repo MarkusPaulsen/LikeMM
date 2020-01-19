@@ -1,79 +1,122 @@
 {% extends 'BasePageView.html' %}
 
 {% block head %}
-<title>Music</title>
+    <title>LikeMM - Music</title>
 {% endblock %}
 
 {% block body %}
-
-    <!--<editor-fold desc="Nav Bar">-->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="text-center">
-            <a class="navbar-brand" href="#">
-                <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            </a>
-        </div>
-    </nav>
-    <!--</editor-fold>-->
-
-    <!--<editor-fold desc="Body">-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <h1>Top 50</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name</b>
-                        </th>
-                    </tr>
-                    {% for artist in artistList %}
-                        <tr>
-                            <th>
-                                {{ artist }}
-                            </th>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            <div class="col-sm">
-                <h1>Your Profile</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name: {{ userName }}</b>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <b>E-Mail: {{ userEmail }}</b>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <img src={{ userPicture }}>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-sm">
-                <h1>Your Movies</h1>
-                <table>
-                    <tr>
-                        <th>
-                            <b>Name</b>
-                        </th>
-                    </tr>
-                    {% for movie in movieList %}
-                        <tr>
-                            <th>
-                                {{ movie }}
-                            </th>
-                        </tr>
-                    {% endfor %}
-                </table>
+    <!-- .hero -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column center">
+                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid)  }}">
+                            <span class="icon">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            <span>Back</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <figure class="image center">
+                            <img src="../static/likemm-logo.png" style="max-width: 160px;">
+                        </figure>
+                    </div>
+                    <div class="column center">
+                        <a class="button is-medium is-danger" href="{{ url_for('home_page')  }}">
+                            <span class="icon">
+                                <i class="fa fa-sign-out-alt"></i>
+                            </span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!--</editor-fold>-->
+    </section>
+    <!-- /.hero -->
+    <!-- .section -->
+    <section class="section has-background-light">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-2">
+                    <div class="card is-shady">
+                        <header class="card-header has-background-info has-text-white">
+                            <p class="card-header-title has-text-white">
+                              #1
+                            </p>
+                            <p class="card-header-icon" aria-label="more options">
+                              <span class="icon">
+                                <i class="fa fa-trophy" aria-hidden="true"></i>
+                              </span>
+                            </p>
+                          </header>
+                        <div class="card-image ">
+                            <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
+                                <img src="https://bulma.io/images/placeholders/480x640.png" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content has-text-centered">
+                            <div class="content">
+                                <b>Movie Title</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                            <span class="icon is-medium">
+                                <svg class="svg-inline--fa fa-user fa-w-14 fa-2x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-2x fa-user"></i> -->
+                            </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h1 class="title is-size-4">Information about what you like</h1>
+                                <p class="is-size-5">
+                                    On the left you can see the top 10 movies in our database. <br>
+                                    On the right you'll find your personalized recommendations. <span class="emoticon">⦤(^ー^)⦥</span>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="media notification is-warning">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>Recommendation #1</strong> <small>5 stars</small>
+                                    <br>
+                                    Is possible to add a description
+                                </p>
+                            </div>
+                        </div>
+                        <figure class="media-right">
+                            <p class="image is-128x128">
+                              <img src="https://bulma.io/images/placeholders/128x128.png">
+                            </p>
+                          </figure>
+                    </article>
+                    <article class="media notification is-warning">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>Recommendation #2</strong> <small>4 stars</small>4                                       <br>
+                                    Is possible to add a description
+                                </p>
+                            </div>
+                        </div>
+                        <figure class="media-right">
+                            <p class="image is-128x128">
+                              <img src="https://bulma.io/images/placeholders/128x128.png">
+                            </p>
+                          </figure>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.section --> 
 {% endblock %}

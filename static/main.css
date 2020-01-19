@@ -1,0 +1,39 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emoticon { white-space: pre; }
+
+.avatar img {
+padding: 5px;
+background: #fff;
+-webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+}
+
+.loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+}
+    .loader-wrapper.loader {
+        height: 80px;
+        width: 80px;
+    }
+
+    .loader-wrapper.is-active {
+        opacity: 1;
+        z-index: 1;
+    }

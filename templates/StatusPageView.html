@@ -2,6 +2,7 @@
 
 {% block head %}
     <title>LikeMM - Dashboard</title>
+    <script defer src="../static/updateStatus.js"></script> 
 {% endblock %}
 
 {% block body %}
@@ -11,12 +12,12 @@
 				<div class="container">
                     <div class="columns">
                         <div class="column center">
-                            <button class="button is-medium is-info">
+                            <a class="button is-medium is-info" href="{{ url_for('music_page' , fid=fid ) }}">
                                 <span class="icon">
                                     <i class="fa fa-music"></i>
                                 </span>
                                 <span>Music</span>
-                            </button>
+                            </a>
                         </div>
                         <div class="column">
                             <figure class="image center">
@@ -24,12 +25,12 @@
                             </figure>
                         </div>
                         <div class="column center">
-                            <button class="button is-medium is-warning">
+                            <a class="button is-medium is-warning" href="{{ url_for('movie_page', fid=fid) }}">
                                 <span class="icon">
                                     <i class="fa fa-video"></i>
                                 </span>
                                 <span>Movies</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
 				</div>
@@ -52,8 +53,8 @@
 								<div class="content">
 									<h1 class="title is-size-4">Your Artists</h1>
 									<p class="is-size-5">
-										This column will show your liked artists. <br>
-										Image and name are the minimun variables required <span class="emoticon">ᕕ( ᐛ )ᕗ</span>
+										Here you can see your liked artists. <br>
+										<span class="emoticon">ᕕ( ᐛ )ᕗ</span>
 									</p>
 								</div>
                             </div>
@@ -84,17 +85,6 @@
                                             <br/>
                                             <small><a href="{{ artist.spotify_uri }}" target="_blank">Listen now</a></small>
                                         </p>
-                                        <p>
-                                            <strong>Billboard:</strong>
-                                            <br/>
-                                            <small>Position: {{ artist.billboard_rank }}</small>
-                                            <br/>
-                                            <small>Weeks: {{ artist.billboard_weeks }}</small>
-                                            <br/>
-                                            <small>Last Position: {{ artist.billboard_lastPos }}</small>
-                                            <br/>
-                                            <small>Peak position: {{ artist.billboard_peakPos }}</small>
-                                        </p>
                                     </div>
                                 </div>
                             </article>
@@ -109,11 +99,29 @@
                             </div>
                             <br>
                             <div class="profile-content">
-                                <h1 class="title is-size-4 has">Welcome {{ userName }} ({{ userEmail }})</h1>
+                                <h1 class="title is-size-4 has">Welcome {{ userName }}</h1>
                                 <p class="is-size-5">
-                                    This column will show your facebook profile. <br>
+                                    <span class="icon is-medium">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <span>{{ userEmail }}</span>
+                                </p>
+                                <p class="is-size-5">
+                                    Have fun using our app! <br>
                                     <span class="emoticon">⦤(^ー^)⦥</span>
                                 </p>
+                            </div>
+                            <div class="box has-background-light" style="margin-top: 10px;">
+                                <div class="loader-wrapper">
+                                    <div class="loader is-loading"></div>
+                                </div>
+                                <div class="has-text-centered">
+                                    <a class="button updateButton is-medium is-primary">
+                                        <span class="icon">
+                                            <i class="fa fa-sync"></i>
+                                        </span>
+                                        <span>Update Data</span>
+                                    </a>
                             </div>
 						</article>
 					</div>
@@ -128,8 +136,8 @@
 								<div class="content">
 									<h1 class="title is-size-4">Your Movies</h1>
 									<p class="is-size-5">
-										This column will show your liked movies. <br>
-										Image and name are the minimun variables required. <span class="emoticon">٩(^ᴗ^)۶</span>
+										Here you can see your liked movies. <br>
+										<span class="emoticon">٩(^ᴗ^)۶</span>
 									</p>
 								</div>
 							</div>

@@ -202,3 +202,9 @@ fabric.properties
 
 # Pipenv
 Pipfile
+
+# VSCode
+.vscode/
+
+# Enviroment variables
+.env

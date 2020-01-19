@@ -1,6 +1,8 @@
 from typing import *
 from APIs.MongoDBAPI import MongoDBAPI
 
+from Model.Movie import Movie
+
 
 class MovieRecEPController:
     def __init__(self, fid):
@@ -11,7 +13,7 @@ class MovieRecEPController:
         self.rec_list = []
 
     def load_chart_list(self):
-        self.chart_list = list(self.mongodb_api.query_lastfm_db(
+        self.chart_list = list(self.mongodb_api.query_themoviedb_db(
             selection={},
             projection={
                 "title": 1,
@@ -38,7 +40,7 @@ class MovieRecEPController:
             selection={"id": self.fid},
             projection={"themoviedb_genres": 1}
         ))
-        genre_list_of_lists = list(map(lambda genre_list: genre_list["themoviedb_genres"], query_element))
+        genre_list_of_lists = list(map(lambda genre_list: [genre_list["themoviedb_genres"][0]], query_element))
         genre_list_not_unique = [genre for genre_list in genre_list_of_lists for genre in genre_list]
         self.genre_list = list(set(genre_list_not_unique))
 
@@ -50,9 +52,9 @@ class MovieRecEPController:
         return False
 
     def create_rec_list(self):
-        pass
+        x=0
         self.rec_list = list(filter(
-            lambda chart: self.check_list_contains(self.genre_list, chart["themoviedb_genres"]),
+            lambda chart: self.check_list_contains(self.genre_list, [chart["themoviedb_genres"][0]]),
             self.chart_list
         ))
 

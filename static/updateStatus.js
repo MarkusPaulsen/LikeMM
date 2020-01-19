@@ -1,9 +1,14 @@
-$(document).ready(function(){
-    $('.updateButton').on('click', function(){
+$(document).ready(function() {
+    $('.updateButton').on('click', function() {
         $('.loader-wrapper').addClass('is-active');
-        setTimeout(function(){
+        $.ajax({
+            type : 'GET',
+            url : '/RebuildStatus/'.concat(fid),
+            success : console.log(fid)
+            })
+        .done(function(data) {
             $('.loader-wrapper').removeClass('is-active');
-        }, 3000)
-    })
-
-})
+            window.location.reload(true); 
+        });
+    });
+});

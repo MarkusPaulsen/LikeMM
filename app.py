@@ -18,12 +18,19 @@ from APIs.MongoDBAPI import MongoDBAPI
 from APIs.LastFmAPI import LastFmAPI
 from APIs.TheMovieDBAPI import TheMovieDBAPI
 
+print("Finished loading imports.")
+
 mongodb_api: MongoDBAPI = MongoDBAPI()
 lastfm_api: LastFmAPI = LastFmAPI()
 themoviedb_api: TheMovieDBAPI = TheMovieDBAPI()
 
+print("Finished creating APIs.")
+
 mongodb_api.delete_lastfm_db(delete={})
 mongodb_api.delete_themoviedb_db(delete={})
+
+print("Finished deleting DBs.")
+
 for track in lastfm_api.get_lastfm_charts(nr=20):
     mongodb_api.update_lastfm_db(
         selection=None,
@@ -34,6 +41,8 @@ for movie in themoviedb_api.get_themoviedb_charts(nr=20):
         selection=None,
         update=movie.json()
     )
+
+print("Finished updating DBs.")
 
 app = Flask(__name__)
 

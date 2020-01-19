@@ -1,6 +1,7 @@
 from typing import *
 from APIs.LastFmInputAPI import LastFmInputAPI
 from APIs.SpotifyInputAPI import SpotifyInputAPI
+from APIs.BillboardInputAPI import BillboardInputAPI
 from Model.Artist import Artist
 
 
@@ -9,6 +10,7 @@ class ArtistFactoryController:
     def __init__(self):
         self.lastfm_input_api = LastFmInputAPI()
         self.spotify_input_api = SpotifyInputAPI()
+        self.billboard_input_api = BillboardInputAPI()
 
     def create_artist(self, artist_name: str) -> Optional[Artist]:
         try:
@@ -18,7 +20,7 @@ class ArtistFactoryController:
             spotify_input: dict = self.spotify_input_api.get_spotify_input_artist(
                 artist_name=artist_name
             )
-            billboard_input: dict = self.spotify_input_api.get_spotify_input_artist(
+            billboard_input: dict = self.billboard_input_api.get_lastfm_input_artist(
                 artist_name=artist_name
             )
             output: Artist = Artist(

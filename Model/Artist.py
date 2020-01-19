@@ -29,6 +29,10 @@ class Artist:
         self.spotify_popularity: int = spotify_input["popularity"]
         self.spotify_followers: int = spotify_input["followers"]["total"]
         self.spotify_genres: List[str] = spotify_input["genres"]
+        self.billboard_rank: str = str(billboard_input["rank"])
+        self.billboard_weeks: str = str(billboard_input["weeks"])
+        self.billboard_lastPos: str = str(billboard_input["lastPos"])
+        self.billboard_peakPos: str = str(billboard_input["peakPos"])
 
     def json(self):
         return {
@@ -44,6 +48,10 @@ class Artist:
             "lastfm_tags": list(map(lambda tag: tag.json(), self.lastfm_tags)),
             "spotify_popularity": self.spotify_popularity,
             "spotify_followers": self.spotify_followers,
-            "spotify_genres": self.spotify_genres
+            "spotify_genres": self.spotify_genres,
+            "billboard_rank": self.billboard_rank,
+            "billboard_weeks": self.billboard_weeks,
+            "billboard_lastPos": self.billboard_lastPos,
+            "billboard_peakPos": self.billboard_peakPos
         }
     # </editor-fold>

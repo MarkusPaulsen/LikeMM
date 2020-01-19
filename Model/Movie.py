@@ -13,8 +13,8 @@ class Movie:
 
         self.themoviedb_status: str = str(themoviedb_input["status"])
         self.themoviedb_runtime: int = str(themoviedb_input["runtime"])
-        self.themoviedb_budget: int = str(themoviedb_input["budget"])
-        self.themoviedb_revenue: int = str(themoviedb_input["revenue"])
+        self.themoviedb_budget: str = str(themoviedb_input["budget"])
+        self.themoviedb_revenue: str = str(themoviedb_input["revenue"])
         self.themoviedb_release_date: str = str(themoviedb_input["release_date"])
         self.themoviedb_backdrop_path: str = str("https://image.tmdb.org/t/p/w500") + str(
             themoviedb_input["backdrop_path"])

@@ -14,7 +14,7 @@ class BillboardInputAPI:
         try:
             hot100_entries = billboard.ChartData('hot-100').entries
             billboard_list: list = list(filter(
-                lambda chart: (chart.title == track_name and chart.artist == track_artist),
+                lambda chart: (chart.title.lower() == track_name.lower() and chart.artist.lower() == track_artist.lower()),
                 hot100_entries
             ))
             if len(billboard_list) == 0:
@@ -50,7 +50,7 @@ class BillboardInputAPI:
         try:
             artist100_entries = billboard.ChartData('artist-100').entries
             billboard_list: list = list(filter(
-                lambda chart: (chart.artist == artist_name),
+                lambda chart: (chart.artist.lower() == artist_name.lower()),
                 artist100_entries
             ))
             if len(billboard_list) == 0:

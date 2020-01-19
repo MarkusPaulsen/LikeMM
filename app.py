@@ -24,13 +24,13 @@ themoviedb_api: TheMovieDBAPI = TheMovieDBAPI()
 
 mongodb_api.delete_lastfm_db(delete={})
 mongodb_api.delete_themoviedb_db(delete={})
-for track in lastfm_api.get_lastfm_charts(nr=10):
+for track in lastfm_api.get_lastfm_charts(nr=20):
     mongodb_api.update_lastfm_db(
         selection=None,
         update=track.json()
     )
-for movie in themoviedb_api.get_themoviedb_charts(nr=10):
-    mongodb_api.update_lastfm_db(
+for movie in themoviedb_api.get_themoviedb_charts(nr=20):
+    mongodb_api.update_themoviedb_db(
         selection=None,
         update=movie.json()
     )

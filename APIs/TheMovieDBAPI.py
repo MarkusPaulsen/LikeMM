@@ -26,7 +26,7 @@ class TheMovieDBAPI:
                 + "api_key=" + self.theMovieDB_API_key)
             reply_json: dict = reply.json()
             movie_list_all: List[dict] = reply_json["results"]
-            movie_list: List[dict] = movie_list_all[:max(len(movie_list_all), nr)]
+            movie_list: List[dict] = movie_list_all[:min(len(movie_list_all), nr)]
             movie_id_list: List[int] = list(map(
                 lambda movie: movie["id"],
                 movie_list

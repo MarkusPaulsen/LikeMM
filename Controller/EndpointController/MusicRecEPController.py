@@ -39,7 +39,8 @@ class MusicRecEPController:
                 "lastfm_playcount": 1,
                 "lastfm_tags": 1,
                 "spotify_popularity": 1
-            }))
+            }
+        ))
         for chart in self.chart_list:
             chart.pop("_id", None)
 

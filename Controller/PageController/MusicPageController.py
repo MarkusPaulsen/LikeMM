@@ -75,6 +75,7 @@ class MusicPageController:
             self.load_chart_list()
             self.load_tag_list()
             self.create_rec_list()
+            
             webpage = render_template(
                 "MusicPageView.html",
                 fid=self.fid,

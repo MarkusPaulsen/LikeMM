@@ -1,10 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'BasePageView.html' %}
 
-</body>
-</html>
+{% block head %}
+    <title>LikeMM - Movies</title>
+{% endblock %}
+
+{% block body %}
+    <!-- .hero -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column center">
+                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid)  }}">
+                            <span class="icon">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            <span>Back</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <figure class="image center">
+                            <img src="../static/likemm-logo.png" style="max-width: 160px;">
+                        </figure>
+                    </div>
+                    <div class="column center">
+                        <a class="button is-medium is-danger" href="{{ url_for('home_page')  }}">
+                            <span class="icon">
+                                <i class="fa fa-sign-out-alt"></i>
+                            </span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.hero -->
+
+    <!-- .section -->
+    <section class="section has-background-light">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    {% for chart in chart_list %}
+                    <div class="card is-shady">
+                        <header class="card-header has-background-info has-text-white">
+                            <p class="card-header-title has-text-white">
+                            # {{loop.index}} {{ chart.title }}
+                            </p>
+                            <p class="card-header-icon" aria-label="more options">
+                            <span class="icon">
+                                <i class="fa fa-trophy" aria-hidden="true"></i>
+                            </span>
+                            </p>
+                        </header>
+                        <div class="card-image ">
+                            <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
+                                <img src=" {{ chart.themoviedb_backdrop_path }}" alt="{{ chart.title }}">
+                            </figure>
+                        </div>
+                        <div class="card-content has-text-centered">
+                            <div class="content">
+                                <b>Vote Average: {{ chart.themoviedb_vote_average }}</b>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="column">
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                            <span class="icon">
+                                <i class="fa fa-heart"></i>
+                            </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="is-size-4">
+                                    Here you have our recommendations:
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                    {% if rec_list|length %}
+                        {% for rec in rec_list %}
+                            <article class="media notification is-primary">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ rec.name }}</strong>
+                                        </p>
+                                        <p>
+                                            <strong><a href="{{ rec.themoviedb_url }}" target="_blank">The Movie DB:</a></strong>
+                                            <br/>
+                                            <small>Budget: {{ rec.themoviedb_budget }}</small>
+                                            <br/>
+                                            <small>Popularity: {{ rec.themoviedb_popularity}}</small>
+                                            <br/>
+                                            <small>Release Date: {{ rec.themoviedb_release_date }}</small>
+                                            <br/>
+                                            <small>Revenue: {{ rec.themoviedb_revenue }}</small>
+                                            <br/>
+                                            <small>Runtime: {{ rec.themoviedb_runtime }}</small>
+                                            <br/>
+                                            <small>Status: {{ rec.themoviedb_status }}</small>
+                                            <br/>
+                                            <small>Vote Average: {{ rec.themoviedb_vote_average }}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <figure class="media-right">
+                                    <p class="image is-128x128">
+                                      <img src="{{ rec.themoviedb_backdrop_path }}" alt="{{ rec.title }}">
+                                    </p>
+                                  </figure>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any recommendations. <br>
+                                        You might need to like more films on Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
+                </div>
+
+                <div class="column">
+                    {% if genre_list|length %}
+                        <article class="media notification is-warning">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="is-size-4">
+                                        Your favourites genres are the following:
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        {% for genre in genre_list %}
+                            <article class="media notification is-warning">
+                                <div class="media-content">
+                                    <div class="content has-text-centered">
+                                        <h2 class="title is-size-4">{{ genre }}</h2>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any movie genres. <br>
+                                        You should like some artists in Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.section --> 
+{% endblock %}

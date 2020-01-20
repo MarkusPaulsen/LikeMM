@@ -9,7 +9,10 @@ class MoviePageController:
 
     def render(self):
         try:
-            webpage = render_template("MoviePageView.html")
+            webpage = render_template(
+                "MoviePageView.html",
+                fid=self.fid,
+            )
             return webpage
         except Exception as e:
             logging.exception(e)

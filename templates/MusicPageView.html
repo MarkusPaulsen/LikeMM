@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column center">
-                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid) }}">
+                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid)  }}">
                             <span class="icon">
                                 <i class="fa fa-home"></i>
                             </span>
@@ -24,7 +24,7 @@
                         </figure>
                     </div>
                     <div class="column center">
-                        <a class="button is-medium is-danger" href="{{ url_for('home_page') }}">
+                        <a class="button is-medium is-danger" href="{{ url_for('home_page')  }}">
                             <span class="icon">
                                 <i class="fa fa-sign-out-alt"></i>
                             </span>
@@ -43,39 +43,106 @@
             <div class="columns">
                 <div class="column">
                     {% for chart in chart_list %}
-                        <div class="card is-shady">
-                            <header class="card-header has-background-info has-text-white">
-                                <p class="card-header-title has-text-white">
-                                    # {{ loop.index }} {{ chart.name }}
-                                </p>
-                                <p class="card-header-icon" aria-label="more options">
+                    <div class="card is-shady">
+                        <header class="card-header has-background-info has-text-white">
+                            <p class="card-header-title has-text-white">
+                            # {{loop.index}} {{ chart.name }}
+                            </p>
+                            <p class="card-header-icon" aria-label="more options">
                             <span class="icon">
                                 <i class="fa fa-trophy" aria-hidden="true"></i>
                             </span>
-                                </p>
-                            </header>
-                            <div class="card-image ">
-                                <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
-                                    <img src=" {{ chart.spotify_image }}" alt="{{ chart.name }}">
-                                </figure>
+                            </p>
+                        </header>
+                        <div class="card-content has-text-centered">
+                            <span class="icon">
+                                <i class="fa fa-music"></i>
+                            </span>
+                            <div>
+                                <a href="{{chart.lastfm_url }}">LastFM</a> | <a href="{{chart.spotify_url }}">Spotify</a>
                             </div>
-                            <div class="card-content has-text-centered">
-                                <div class="content">
-                                    <b>By: {{ chart.artist }}</b>
-                                </div>
+                            <br>
+                            <div class="content">
+                                <b>Artist: {{ chart.artist }}</b>
+                                <br>
+                                <b>Playcount: {{ chart.lastfm_playcount }}</b>
+                                <br>
+                                <b>Listeners: {{ chart.lastfm_listeners }}</b>
+                                <br>
+                                <b>Popularity: {{ chart.spotify_popularity }}</b>
+                            </div>
+                            <span class="icon">
+                                <i class="fab fa-spotify"></i>
+                            </span>
+                            <span><a href="{{chart.spotify_uri }}">Listen now</a></span>
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
+                
+                <div class="column">
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                            <span class="icon">
+                                <i class="fa fa-heart"></i>
+                            </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="is-size-4">
+                                    Here you have our recommendations:
+                                </p>
                             </div>
                         </div>
-                    {% endfor %}
+                    </article>
+                    {% if rec_list|length %}
+                        {% for rec in rec_list %}
+                            <div class="card is-shady">
+                                <header class="card-header has-background-info has-text-white">
+                                    <p class="card-header-title has-text-white">
+                                    # {{loop.index}} {{ rec.name }}
+                                    </p>
+                                    <p class="card-header-icon" aria-label="more options">
+                                    <span class="icon">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </span>
+                                    </p>
+                                </header>
+                                <div class="card-content has-text-centered">
+                                    <span class="icon">
+                                        <i class="fa fa-music"></i>
+                                    </span>
+                                    <div class="content">
+                                        <b>Artist: {{ rec.artist }}</b>
+                                        <br>
+                                        <b>Polularity: {{ rec.popularity }}</b>
+                                    </div>
+                                    <span class="icon">
+                                        <i class="fab fa-spotify"></i>
+                                    </span>
+                                    <span><a href="{{rec.spotify_url }}">Listen now</a></span>
+                                </div>
+                            </div>
+                            <br>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any recommendations. <br>
+                                        You might need to like more artist on Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
                 </div>
 
                 <div class="column">
                     {% if tag_list|length %}
-                        <article class="media notification is-primary">
-                            <figure class="media-left">
-                                <span class="icon">
-                                    <i class="fa fa-heart"></i>
-                                </span>
-                            </figure>
+                        <article class="media notification is-warning">
                             <div class="media-content">
                                 <div class="content">
                                     <p class="is-size-4">
@@ -85,7 +152,7 @@
                             </div>
                         </article>
                         {% for tag in tag_list %}
-                            <article class="media notification is-primary">
+                            <article class="media notification is-warning">
                                 <div class="media-content">
                                     <div class="content has-text-centered">
                                         <h2 class="title is-size-4">{{ tag }}</h2>
@@ -104,50 +171,10 @@
                                 </div>
                             </div>
                         </article>
-                    {% endif %}
-                </div>
-                <div class="column">
-                    {% if rec_list|length %}
-                        <p>Hey</p>
-                        {% for rec in rec_list %}
-                            <article class="media notification is-warning">
-                                <div class="media-content">
-                                    <div class="content">
-                                        <p>
-                                            <strong>{{ rec.name }}</strong> <small>with {{ rec.lastfm_listeners }} listeners</small>
-                                        </p>
-                                        <p>
-                                            <strong><a href="{{ rec.spotify_url }}" target="_blank">Spotify:</a></strong>
-                                            <br/>
-                                            <small>Popularity: {{ rec.spotify_popularity }}</small>
-                                            <br/>
-                                            <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a>
-                                            </small>
-                                        </p>
-                                    </div>
-                                </div>
-                                <figure class="media-right">
-                                    <p class="image is-128x128">
-                                        <img src="{{ rec.spotify_image }}" alt="{{ rec.name }}">
-                                    </p>
-                                </figure>
-                            </article>
-                        {% endfor %}
-                    {% else %}
-                        <article class="media notification is-danger">
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        Error: Couldn't find any recommendations. <br>
-                                        You might need to like more artist on Facebook.
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    {% endif %}
+                    {%endif %}
                 </div>
             </div>
         </div>
     </section>
-    <!-- /.section -->
+    <!-- /.section --> 
 {% endblock %}

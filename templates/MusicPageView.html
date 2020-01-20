@@ -69,29 +69,42 @@
                 </div>
                 
                 <div class="column">
-                    <article class="media notification is-primary">
-                        <figure class="media-left">
-                            <span class="icon">
-                                <i class="fa fa-heart"></i>
-                            </span>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="is-size-4">
-                                    Your favourites genres are the following:
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                    {% for tag in tag_list %}
+                    {% if tag_list|length %}
                         <article class="media notification is-primary">
+                            <figure class="media-left">
+                                <span class="icon">
+                                    <i class="fa fa-heart"></i>
+                                </span>
+                            </figure>
                             <div class="media-content">
-                                <div class="content has-text-centered">
-                                    <h2 class="title is-size-4">{{ tag }}</h2>
+                                <div class="content">
+                                    <p class="is-size-4">
+                                        Your favourites genres are the following:
+                                    </p>
                                 </div>
                             </div>
                         </article>
-                    {% endfor %}
+                        {% for tag in tag_list %}
+                            <article class="media notification is-primary">
+                                <div class="media-content">
+                                    <div class="content has-text-centered">
+                                        <h2 class="title is-size-4">{{ tag }}</h2>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any music genres. <br>
+                                        You should like some artists in Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
                 </div>
                 <div class="column">
                     {% if rec_list|length %}
@@ -104,11 +117,11 @@
                                             <strong>{{ rec.name }}</strong> <small>with {{ rec.lastfm_listeners }} listeners</small>
                                         </p>
                                         <p>
-                                            <strong><a href="{{ artist.spotify_url }}" target="_blank">Spotify:</a></strong>
+                                            <strong><a href="{{ rec.spotify_url }}" target="_blank">Spotify:</a></strong>
                                             <br/>
-                                            <small>Popularity: {{ artist.spotify_popularity }}</small>
+                                            <small>Popularity: {{ rec.spotify_popularity }}</small>
                                             <br/>
-                                            <small><a href="{{ artist.spotify_uri }}" target="_blank">Listen now</a></small>
+                                            <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a></small>
                                         </p>
                                     </div>
                                 </div>

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import pprint
+import time
 
 from Controller.PageController.HomePageController import HomePageController
 from Controller.PageController.StatusPageController import StatusPageController
@@ -32,12 +32,18 @@ mongodb_api.delete_themoviedb_db(delete={})
 
 print("Finished deleting DBs.")
 
-for track in lastfm_api.get_lastfm_charts(nr=20):
+lastfm_charts = lastfm_api.get_lastfm_charts(nr=20)
+if len(lastfm_charts) == 0:
+    print("Error in LastFM charts")
+for track in lastfm_charts:
     mongodb_api.update_lastfm_db(
         selection=None,
         update=track.json()
     )
-for movie in themoviedb_api.get_themoviedb_charts(nr=20):
+themoviedb_charts = themoviedb_api.get_themoviedb_charts(nr=20)
+if len(themoviedb_charts) == 0:
+    print("Error in The Movie DB charts")
+for movie in themoviedb_charts:
     mongodb_api.update_themoviedb_db(
         selection=None,
         update=movie.json()

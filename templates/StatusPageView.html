@@ -21,6 +21,12 @@
                                 </span>
                                 <span>Music</span>
                             </a>
+                            <a class="button is-medium is-warning" style="margin-left: 5px" href="{{ url_for('movie_page', fid=fid) }}">
+                                <span class="icon">
+                                    <i class="fa fa-video"></i>
+                                </span>
+                                <span>Movies</span>
+                            </a>
                         </div>
                         <div class="column">
                             <figure class="image center">
@@ -28,11 +34,11 @@
                             </figure>
                         </div>
                         <div class="column center">
-                            <a class="button is-medium is-warning" href="{{ url_for('movie_page', fid=fid) }}">
+                            <a class="button is-medium is-danger" href="{{ url_for('home_page')  }}">
                                 <span class="icon">
-                                    <i class="fa fa-video"></i>
+                                    <i class="fa fa-sign-out-alt"></i>
                                 </span>
-                                <span>Movies</span>
+                                <span>Log Out</span>
                             </a>
                         </div>
                     </div>
@@ -150,35 +156,47 @@
                         </article>
                         {% for movie in movieList %}
                             <article class="media notification is-warning">
+
                                 <div class="media-content">
                                     <div class="content">
-                                        <p>
-                                            <strong>Title:</strong> <small>{{ movie.title }}</small>
-                                        </p>
-                                        <p>
-                                            <strong><a href="{{ movie.themoviedb_url }}" target="_blank">The Movie DB:</a></strong>
-                                            <br/>
-                                            <small>Budget: {{ movie.themoviedb_budget }}</small>
-                                            <br/>
-                                            <small>Popularity: {{ movie.themoviedb_popularity}}</small>
-                                            <br/>
-                                            <small>Release Date: {{ movie.themoviedb_release_date }}</small>
-                                            <br/>
-                                            <small>Revenue: {{ movie.themoviedb_revenue }}</small>
-                                            <br/>
-                                            <small>Runtime: {{ movie.themoviedb_runtime }}</small>
-                                            <br/>
-                                            <small>Status: {{ movie.themoviedb_status }}</small>
-                                            <br/>
-                                            <small>Vote Average: {{ movie.themoviedb_vote_average }}</small>
-                                        </p>
+                                        <b class="is-big">Title: {{ movie.title }}</b>
+                                        <figure class="media">
+                                            <p class="image">
+                                              <img src="{{ movie.themoviedb_backdrop_path }}" alt="{{ movie.title}}">
+                                            </p>
+                                        </figure>
                                     </div>
+                                        <div class="content">
+                                            <div class="columns">
+                                                <div class="column">
+                                                    <strong><a href="{{ movie.themoviedb_url }}" target="_blank">The Movie DB:</a></strong>
+                                                    <br/>
+                                                    <small>Budget: {{ movie.themoviedb_budget }}</small>
+                                                    <br/>
+                                                    <small>Popularity: {{ movie.themoviedb_popularity}}</small>
+                                                    <br/>
+                                                    <small>Release Date: {{ movie.themoviedb_release_date }}</small>
+                                                    <br/>
+                                                    <small>Revenue: {{ movie.themoviedb_revenue }}</small>
+                                                    <br/>
+                                                    <small>Runtime: {{ movie.themoviedb_runtime }}</small>
+                                                    <br/>
+                                                    <small>Status: {{ movie.themoviedb_status }}</small>
+                                                    <br/>
+                                                    <small>Vote Average: {{ movie.themoviedb_vote_average }}</small>
+                                                </div>
+                                                <div class="column">
+                                                    <strong><a href="{{ movie.omdb_url }}" target="_blank">OMDB:</a></strong>
+                                                    <br/>
+                                                    <small>Rating: {{ movie.omdb_imdb_rating }}</small>
+                                                    <br/>
+                                                    <small>Votes: {{ movie.omdb_imdb_votes}}</small>
+                                                    <br/>
+                                                    <small>Metascore: {{ movie.omdb_metascore }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
-                                <figure class="media-right">
-                                    <p class="image is-128x128">
-                                      <img src="{{ movie.themoviedb_backdrop_path }}" alt="{{ movie.title}}">
-                                    </p>
-                                  </figure>
                             </article>
                         {% endfor %}
 					</div>

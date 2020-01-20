@@ -42,80 +42,97 @@
         <div class="container">
             <div class="columns">
                 <div class="column">
-                    {% for chart in chart_list %}
-                    <div class="card is-shady">
-                        <header class="card-header has-background-info has-text-white">
-                            <p class="card-header-title has-text-white">
-                            # {{loop.index}} {{ chart.title }}
-                            </p>
-                            <p class="card-header-icon" aria-label="more options">
-                            <span class="icon">
-                                <i class="fa fa-trophy" aria-hidden="true"></i>
-                            </span>
-                            </p>
-                        </header>
-                        <div class="card-image ">
-                            <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
-                                <img src=" {{ chart.themoviedb_backdrop_path }}" alt="{{ chart.title }}">
-                            </figure>
-                        </div>
-                        <div class="card-content has-text-centered">
+                    <article class="media notification is-info">
+                        <div class="media-content">
                             <div class="content">
-                                <b>Vote Average: {{ chart.themoviedb_vote_average }}</b>
+                                <p class="is-size-4">
+                                    Top movies in our database:
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                    </article>
+                    {% if chart_list|length %}
+                        {% for chart in chart_list %}
+                        <div class="card is-shady">
+                            <header class="card-header has-background-info has-text-white">
+                                <p class="card-header-title has-text-white">
+                                # {{loop.index}} {{ chart.title }}
+                                </p>
+                                <p class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-trophy" aria-hidden="true"></i>
+                                </span>
+                                </p>
+                            </header>
+                            <div class="card-image ">
+                                <figure class="image"> <!-- <figure class="image is-128x128">-->
+                                    <img src=" {{ chart.themoviedb_backdrop_path }}" alt="{{ chart.title }}">
+                                </figure>
+                            </div>
+                            <div class="card-content has-text-centered">
+                                <div class="content">
+                                    <b>Vote Average: {{ chart.themoviedb_vote_average }}</b>
+                                    <br>
+                                    <b>Release date: {{ chart.themoviedb_release_date }}</b>
+                                    <br>
+                                    <a href="{{ chart.themoviedb_url }}" target="_blank">More info</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: No tracks in our database. <br>
+                                        You might need to rerun the server.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {% endif %}
                 </div>
                 
                 <div class="column">
                     <article class="media notification is-primary">
-                        <figure class="media-left">
-                            <span class="icon">
-                                <i class="fa fa-heart"></i>
-                            </span>
-                        </figure>
                         <div class="media-content">
                             <div class="content">
                                 <p class="is-size-4">
-                                    Here you have our recommendations:
+                                    Your recommendations:
                                 </p>
                             </div>
                         </div>
                     </article>
                     {% if rec_list|length %}
                         {% for rec in rec_list %}
-                            <article class="media notification is-primary">
-                                <div class="media-content">
+                            <div class="card is-shady">
+                                <header class="card-header has-background-primary has-text-white">
+                                    <p class="card-header-title has-text-white">
+                                    # {{loop.index}} {{ rec.title }}
+                                    </p>
+                                    <p class="card-header-icon" aria-label="more options">
+                                    <span class="icon">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </span>
+                                    </p>
+                                </header>
+                                <div class="card-image ">
+                                    <figure class="image"> <!-- <figure class="image is-128x128">-->
+                                        <img src=" {{ rec.themoviedb_backdrop_path }}" alt="{{ rec.title }}">
+                                    </figure>
+                                </div>
+                                <div class="card-content has-text-centered">
                                     <div class="content">
-                                        <p>
-                                            <strong>{{ rec.name }}</strong>
-                                        </p>
-                                        <p>
-                                            <strong><a href="{{ rec.themoviedb_url }}" target="_blank">The Movie DB:</a></strong>
-                                            <br/>
-                                            <small>Budget: {{ rec.themoviedb_budget }}</small>
-                                            <br/>
-                                            <small>Popularity: {{ rec.themoviedb_popularity}}</small>
-                                            <br/>
-                                            <small>Release Date: {{ rec.themoviedb_release_date }}</small>
-                                            <br/>
-                                            <small>Revenue: {{ rec.themoviedb_revenue }}</small>
-                                            <br/>
-                                            <small>Runtime: {{ rec.themoviedb_runtime }}</small>
-                                            <br/>
-                                            <small>Status: {{ rec.themoviedb_status }}</small>
-                                            <br/>
-                                            <small>Vote Average: {{ rec.themoviedb_vote_average }}</small>
-                                        </p>
+                                        <b>Vote Average: {{ rec.themoviedb_vote_average }}</b>
+                                        <br>
+                                        <b>Release date: {{ rec.themoviedb_release_date }}</b>
+                                        <br>
+                                        <a href="{{ rec.themoviedb_url }}" target="_blank">More info</a>
                                     </div>
                                 </div>
-                                <figure class="media-right">
-                                    <p class="image is-128x128">
-                                      <img src="{{ rec.themoviedb_backdrop_path }}" alt="{{ rec.title }}">
-                                    </p>
-                                  </figure>
-                            </article>
+                            </div>
+
                         {% endfor %}
                     {% else %}
                         <article class="media notification is-danger">
@@ -137,7 +154,7 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p class="is-size-4">
-                                        Your favourites genres are the following:
+                                        Your favourites genres:
                                     </p>
                                 </div>
                             </div>

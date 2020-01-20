@@ -13,7 +13,7 @@ class MoviePageController:
         self.rec_list = []
 
     def load_chart_list(self):
-        self.chart_list = list(self.mongodb_api.query_movie_db(
+        self.chart_list = list(self.mongodb_api.query_themoviedb_db(
             selection={},
             projection={
                 "title": 1,

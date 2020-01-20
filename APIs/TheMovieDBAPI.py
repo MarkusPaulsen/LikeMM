@@ -15,7 +15,7 @@ from Controller.FactoryController.MovieFactoryController import MovieFactoryCont
 class TheMovieDBAPI:
 
     def __init__(self):
-        self.theMovieDB_API_key: str = os.environ["theMovieDB_API_key"]
+        self.themoviedb_api_key: str = os.environ["themoviedb_api_key"]
         self.movie_factory_controller: MovieFactoryController = MovieFactoryController()
 
     # <editor-fold desc="Tracks">
@@ -23,7 +23,7 @@ class TheMovieDBAPI:
         try:
             reply: requests.api = requests.get(
                 url="https://api.themoviedb.org/3/trending/movie/day?"
-                + "api_key=" + self.theMovieDB_API_key)
+                + "api_key=" + self.themoviedb_api_key)
             reply_json: dict = reply.json()
             movie_list_all: List[dict] = reply_json["results"]
             movie_list: List[dict] = movie_list_all[:min(len(movie_list_all), nr)]

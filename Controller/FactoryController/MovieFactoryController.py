@@ -1,5 +1,6 @@
 from typing import *
 from APIs.TheMovieDBInputAPI import TheMovieDBInputAPI
+from APIs.OMDBInputAPI import OMDBInputAPI
 from Model.Movie import Movie
 
 
@@ -7,14 +8,19 @@ class MovieFactoryController:
 
     def __init__(self):
         self.themoviedb_input_api = TheMovieDBInputAPI()
+        self.omdb_input_api = OMDBInputAPI()
 
     def create_movie(self, movie_name: str) -> Optional[Movie]:
         try:
             themoviedb_input: dict = self.themoviedb_input_api.get_themoviedb_input_movie(
                 movie_name=movie_name
             )
+            omdb_input: dict = self.omdb_input_api.get_themoviedb_input_movie(
+                movie_name=movie_name
+            )
             output: Movie = Movie(
-                themoviedb_input=themoviedb_input
+                themoviedb_input=themoviedb_input,
+                omdb_input=omdb_input
             )
             return output
         except Exception as e:
@@ -38,8 +44,12 @@ class MovieFactoryController:
             themoviedb_input: dict = self.themoviedb_input_api.get_themoviedb_movie_details(
                 movie_id=movie_id
             )
+            omdb_input: dict = self.omdb_input_api.get_themoviedb_input_movie(
+                movie_name=themoviedb_input["title"]
+            )
             output: Movie = Movie(
-                themoviedb_input=themoviedb_input
+                themoviedb_input=themoviedb_input,
+                omdb_input=omdb_input
             )
             return output
         except Exception as e:

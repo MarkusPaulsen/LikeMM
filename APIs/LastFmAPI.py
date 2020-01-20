@@ -15,7 +15,7 @@ from Controller.FactoryController.TrackFactoryController import TrackFactoryCont
 class LastFmAPI:
 
     def __init__(self):
-        self.lastFm_API_key: str = os.environ["lastFm_API_key"]
+        self.lastFm_API_key: str = os.environ["lastfm_api_key"]
         self.track_factory_controller: TrackFactoryController = TrackFactoryController()
 
     # <editor-fold desc="Tracks">

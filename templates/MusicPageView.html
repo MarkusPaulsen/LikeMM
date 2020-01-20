@@ -56,7 +56,7 @@
                         </header>
                         <div class="card-image ">
                             <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
-                                <img src=" {{ chart.spotify_image }}" alt="Placeholder image">
+                                <img src=" {{ chart.spotify_image }}" alt="{{ chart.name }}">
                             </figure>
                         </div>
                         <div class="card-content has-text-centered">
@@ -108,17 +108,15 @@
                 </div>
                 <div class="column">
                     {% if rec_list|length %}
-                        <p>Hey</p>
                         {% for rec in rec_list %}
                             <article class="media notification is-warning">
                                 <div class="media-content">
                                     <div class="content">
                                         <p>
-                                            <strong>{{ rec.name }}</strong> <small>with {{ rec.lastfm_listeners }} listeners</small>
+                                            <strong>{{ rec.name }}</strong>
                                         </p>
                                         <p>
-                                            <strong><a href="{{ rec.spotify_url }}" target="_blank">Spotify:</a></strong>
-                                            <br/>
+                                            <small>Listeners: {{ rec.lastfm_listeners }}</small>
                                             <small>Popularity: {{ rec.spotify_popularity }}</small>
                                             <br/>
                                             <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a></small>
@@ -127,9 +125,9 @@
                                 </div>
                                 <figure class="media-right">
                                     <p class="image is-128x128">
-                                    <img src="{{ rec.spotify_image }}">
+                                      <img src="{{ rec.spotify_image }}" alt="{{ rec.name }}">
                                     </p>
-                                </figure>
+                                  </figure>
                             </article>
                         {% endfor %}
                     {% else %}

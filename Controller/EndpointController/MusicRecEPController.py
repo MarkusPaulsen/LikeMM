@@ -44,26 +44,39 @@ class MusicRecEPController:
         for chart in self.chart_list:
             chart.pop("_id", None)
 
+    def get_first_element(self, element_list):
+        try:
+            return [element_list[0]]
+        except Exception:
+            return []
+
     def load_tag_list(self):
         query_element = list(self.mongodb_api.query_artist_db(
             selection={"id": self.fid},
             projection={"lastfm_tags": 1}
         ))
-        tag_list_of_lists = list(map(lambda tag_list: [tag_list["lastfm_tags"][0]], query_element))
+        tag_list_of_lists = list(map(
+            lambda tag_list: self.get_first_element(tag_list["lastfm_tags"]),
+            query_element
+        ))
         tag_list_not_unique = [tag for tag_list in tag_list_of_lists for tag in tag_list]
         self.tag_list = list(set(tag_list_not_unique))
 
     def check_list_contains(self, user_tag_list, chart_tag_list):
-        for chart_tag in chart_tag_list:
-            for user_tag in user_tag_list:
-                if chart_tag == user_tag:
-                    return True
-        return False
+        try:
+            first_element = [chart_tag_list[0]]
+            for chart_tag in first_element:
+                for user_tag in user_tag_list:
+                    if chart_tag == user_tag:
+                        return True
+            return False
+        except Exception:
+            return False
 
     def create_rec_list(self):
         pass
         self.rec_list = list(filter(
-            lambda chart: self.check_list_contains(self.tag_list, [chart["lastfm_tags"][0]]),
+            lambda chart: self.check_list_contains(self.tag_list, chart["lastfm_tags"]),
             self.chart_list
         ))
 

@@ -35,25 +35,38 @@ class MoviePageController:
         for chart in self.chart_list:
             chart.pop("_id", None)
 
+    def get_first_element(self, element_list):
+        try:
+            return [element_list[0]]
+        except Exception:
+            return []
+
     def load_genre_list(self):
         query_element = list(self.mongodb_api.query_movie_db(
             selection={"id": self.fid},
             projection={"themoviedb_genres": 1}
         ))
-        genre_list_of_lists = list(map(lambda genre_list: [genre_list["themoviedb_genres"][0]], query_element))
+        genre_list_of_lists = list(map(
+            lambda genre_list: self.get_first_element(genre_list["themoviedb_genres"]),
+            query_element
+        ))
         genre_list_not_unique = [genre for genre_list in genre_list_of_lists for genre in genre_list]
         self.genre_list = list(set(genre_list_not_unique))
 
     def check_list_contains(self, user_tag_list, chart_tag_list):
-        for chart_tag in chart_tag_list:
-            for user_tag in user_tag_list:
-                if chart_tag == user_tag:
-                    return True
-        return False
+        try:
+            first_element = [chart_tag_list[0]]
+            for chart_tag in first_element:
+                for user_tag in user_tag_list:
+                    if chart_tag == user_tag:
+                        return True
+            return False
+        except Exception:
+            return False
 
     def create_rec_list(self):
         self.rec_list = list(filter(
-            lambda chart: self.check_list_contains(self.genre_list, [chart["themoviedb_genres"][0]]),
+            lambda chart: self.check_list_contains(self.genre_list, chart["themoviedb_genres"]),
             self.chart_list
         ))
 

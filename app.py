@@ -27,23 +27,23 @@ themoviedb_api: TheMovieDBAPI = TheMovieDBAPI()
 
 print("Finished creating APIs.")
 
-# mongodb_api.delete_lastfm_db(delete={})
-# mongodb_api.delete_themoviedb_db(delete={})
-#
-# print("Finished deleting DBs.")
-#
-# for track in lastfm_api.get_lastfm_charts(nr=20):
-#     mongodb_api.update_lastfm_db(
-#         selection=None,
-#         update=track.json()
-#     )
-# for movie in themoviedb_api.get_themoviedb_charts(nr=20):
-#     mongodb_api.update_themoviedb_db(
-#         selection=None,
-#         update=movie.json()
-#     )
-#
-# print("Finished updating DBs.")
+mongodb_api.delete_lastfm_db(delete={})
+mongodb_api.delete_themoviedb_db(delete={})
+
+print("Finished deleting DBs.")
+
+for track in lastfm_api.get_lastfm_charts(nr=20):
+    mongodb_api.update_lastfm_db(
+        selection=None,
+        update=track.json()
+    )
+for movie in themoviedb_api.get_themoviedb_charts(nr=20):
+    mongodb_api.update_themoviedb_db(
+        selection=None,
+        update=movie.json()
+    )
+
+print("Finished updating DBs.")
 
 app = Flask(__name__)
 

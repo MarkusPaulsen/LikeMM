@@ -9,7 +9,7 @@ import requests
 class LastFmInputAPI:
 
     def __init__(self):
-        self.lastFm_API_key: str = os.environ["lastFm_API_key"]
+        self.lastFm_API_key: str = os.environ["lastfm_api_key"]
 
     # <editor-fold desc="Track input">
     def get_lastfm_input_track(self, track_name: str, track_artist: str) -> Optional[dict]:

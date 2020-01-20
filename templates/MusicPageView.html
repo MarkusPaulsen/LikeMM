@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column center">
-                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid)  }}">
+                        <a class="button is-medium is-primary" href="{{ url_for('status_page', fid=fid) }}">
                             <span class="icon">
                                 <i class="fa fa-home"></i>
                             </span>
@@ -24,7 +24,7 @@
                         </figure>
                     </div>
                     <div class="column center">
-                        <a class="button is-medium is-danger" href="{{ url_for('home_page')  }}">
+                        <a class="button is-medium is-danger" href="{{ url_for('home_page') }}">
                             <span class="icon">
                                 <i class="fa fa-sign-out-alt"></i>
                             </span>
@@ -43,31 +43,31 @@
             <div class="columns">
                 <div class="column">
                     {% for chart in chart_list %}
-                    <div class="card is-shady">
-                        <header class="card-header has-background-info has-text-white">
-                            <p class="card-header-title has-text-white">
-                            # {{loop.index}} {{ chart.name }}
-                            </p>
-                            <p class="card-header-icon" aria-label="more options">
+                        <div class="card is-shady">
+                            <header class="card-header has-background-info has-text-white">
+                                <p class="card-header-title has-text-white">
+                                    # {{ loop.index }} {{ chart.name }}
+                                </p>
+                                <p class="card-header-icon" aria-label="more options">
                             <span class="icon">
                                 <i class="fa fa-trophy" aria-hidden="true"></i>
                             </span>
-                            </p>
-                        </header>
-                        <div class="card-image ">
-                            <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
-                                <img src=" {{ chart.spotify_image }}" alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content has-text-centered">
-                            <div class="content">
-                                <b>By: {{ chart.artist }}</b>
+                                </p>
+                            </header>
+                            <div class="card-image ">
+                                <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
+                                    <img src=" {{ chart.spotify_image }}" alt="{{ chart.name }}">
+                                </figure>
+                            </div>
+                            <div class="card-content has-text-centered">
+                                <div class="content">
+                                    <b>By: {{ chart.artist }}</b>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
-                
+
                 <div class="column">
                     {% if tag_list|length %}
                         <article class="media notification is-primary">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </article>
-                    {%endif %}
+                    {% endif %}
                 </div>
                 <div class="column">
                     {% if rec_list|length %}
@@ -121,13 +121,14 @@
                                             <br/>
                                             <small>Popularity: {{ rec.spotify_popularity }}</small>
                                             <br/>
-                                            <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a></small>
+                                            <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a>
+                                            </small>
                                         </p>
                                     </div>
                                 </div>
                                 <figure class="media-right">
                                     <p class="image is-128x128">
-                                    <img src="{{ rec.spotify_image }}">
+                                        <img src="{{ rec.spotify_image }}" alt="{{ rec.name }}">
                                     </p>
                                 </figure>
                             </article>
@@ -143,10 +144,10 @@
                                 </div>
                             </div>
                         </article>
-                    {%endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
-    <!-- /.section --> 
+    <!-- /.section -->
 {% endblock %}

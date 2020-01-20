@@ -54,28 +54,95 @@
                             </span>
                             </p>
                         </header>
-                        <div class="card-image ">
-                            <figure class="image is-3by4"> <!-- <figure class="image is-128x128">-->
-                                <img src=" {{ chart.spotify_image }}" alt="{{ chart.name }}">
-                            </figure>
-                        </div>
                         <div class="card-content has-text-centered">
-                            <div class="content">
-                                <b>By: {{ chart.artist }}</b>
+                            <span class="icon">
+                                <i class="fa fa-music"></i>
+                            </span>
+                            <div>
+                                <a href="{{chart.lastfm_url }}">LastFM</a> | <a href="{{chart.spotify_url }}">Spotify</a>
                             </div>
+                            <br>
+                            <div class="content">
+                                <b>Artist: {{ chart.artist }}</b>
+                                <br>
+                                <b>Playcount: {{ chart.lastfm_playcount }}</b>
+                                <br>
+                                <b>Listeners: {{ chart.lastfm_listeners }}</b>
+                                <br>
+                                <b>Popularity: {{ chart.spotify_popularity }}</b>
+                            </div>
+                            <span class="icon">
+                                <i class="fab fa-spotify"></i>
+                            </span>
+                            <span><a href="{{chart.spotify_uri }}">Listen now</a></span>
                         </div>
                     </div>
+                    <br>
                     {% endfor %}
                 </div>
                 
                 <div class="column">
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                            <span class="icon">
+                                <i class="fa fa-heart"></i>
+                            </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="is-size-4">
+                                    Here you have our recommendations:
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                    {% if rec_list|length %}
+                        {% for rec in rec_list %}
+                            <div class="card is-shady">
+                                <header class="card-header has-background-info has-text-white">
+                                    <p class="card-header-title has-text-white">
+                                    # {{loop.index}} {{ rec.name }}
+                                    </p>
+                                    <p class="card-header-icon" aria-label="more options">
+                                    <span class="icon">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </span>
+                                    </p>
+                                </header>
+                                <div class="card-content has-text-centered">
+                                    <span class="icon">
+                                        <i class="fa fa-music"></i>
+                                    </span>
+                                    <div class="content">
+                                        <b>Artist: {{ rec.artist }}</b>
+                                        <br>
+                                        <b>Polularity: {{ rec.popularity }}</b>
+                                    </div>
+                                    <span class="icon">
+                                        <i class="fab fa-spotify"></i>
+                                    </span>
+                                    <span><a href="{{rec.spotify_url }}">Listen now</a></span>
+                                </div>
+                            </div>
+                            <br>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any recommendations. <br>
+                                        You might need to like more artist on Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
+                </div>
+
+                <div class="column">
                     {% if tag_list|length %}
-                        <article class="media notification is-primary">
-                            <figure class="media-left">
-                                <span class="icon">
-                                    <i class="fa fa-heart"></i>
-                                </span>
-                            </figure>
+                        <article class="media notification is-warning">
                             <div class="media-content">
                                 <div class="content">
                                     <p class="is-size-4">
@@ -85,7 +152,7 @@
                             </div>
                         </article>
                         {% for tag in tag_list %}
-                            <article class="media notification is-primary">
+                            <article class="media notification is-warning">
                                 <div class="media-content">
                                     <div class="content has-text-centered">
                                         <h2 class="title is-size-4">{{ tag }}</h2>
@@ -100,43 +167,6 @@
                                     <p>
                                         Error: Couldn't find any music genres. <br>
                                         You should like some artists in Facebook.
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    {%endif %}
-                </div>
-                <div class="column">
-                    {% if rec_list|length %}
-                        {% for rec in rec_list %}
-                            <article class="media notification is-warning">
-                                <div class="media-content">
-                                    <div class="content">
-                                        <p>
-                                            <strong>{{ rec.name }}</strong>
-                                        </p>
-                                        <p>
-                                            <small>Listeners: {{ rec.lastfm_listeners }}</small>
-                                            <small>Popularity: {{ rec.spotify_popularity }}</small>
-                                            <br/>
-                                            <small><a href="{{ rec.spotify_uri }}" target="_blank">Listen now</a></small>
-                                        </p>
-                                    </div>
-                                </div>
-                                <figure class="media-right">
-                                    <p class="image is-128x128">
-                                      <img src="{{ rec.spotify_image }}" alt="{{ rec.name }}">
-                                    </p>
-                                  </figure>
-                            </article>
-                        {% endfor %}
-                    {% else %}
-                        <article class="media notification is-danger">
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        Error: Couldn't find any recommendations. <br>
-                                        You might need to like more artist on Facebook.
                                     </p>
                                 </div>
                             </div>

@@ -68,6 +68,11 @@
                                   <p class="image is-128x128">
                                     <img src="{{ artist.spotify_image }}" alt="{{artist.name}}">
                                   </p>
+                                  <br>
+                                  <span class="icon">
+                                    <i class="fab fa-spotify"></i>
+                                </span>
+                                <span><a href="{{artist.spotify_url }}">Listen now</a></span>
                                 </figure>
                                 <div class="media-content">
                                     <div class="content">
@@ -85,8 +90,6 @@
                                             <strong><a href="{{ artist.spotify_url }}" target="_blank">Spotify:</a></strong>
                                             <br/>
                                             <small>Popularity: {{ artist.spotify_popularity }}</small>
-                                            <br/>
-                                            <small><a href="{{ artist.spotify_uri }}" target="_blank">Listen now</a></small>
                                         </p>
                                     </div>
                                 </div>

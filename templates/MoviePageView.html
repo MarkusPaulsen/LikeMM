@@ -69,47 +69,23 @@
                 </div>
                 
                 <div class="column">
-                    {% if genre_list|length %}
-                        <article class="media notification is-primary">
-                            <figure class="media-left">
-                                <span class="icon">
-                                    <i class="fa fa-heart"></i>
-                                </span>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p class="is-size-4">
-                                        Your favourites genres are the following:
-                                    </p>
-                                </div>
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                            <span class="icon">
+                                <i class="fa fa-heart"></i>
+                            </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="is-size-4">
+                                    Here you have our recommendations:
+                                </p>
                             </div>
-                        </article>
-                        {% for genre in genre_list %}
-                            <article class="media notification is-primary">
-                                <div class="media-content">
-                                    <div class="content has-text-centered">
-                                        <h2 class="title is-size-4">{{ genre }}</h2>
-                                    </div>
-                                </div>
-                            </article>
-                        {% endfor %}
-                    {% else %}
-                        <article class="media notification is-danger">
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        Error: Couldn't find any movie genres. <br>
-                                        You should like some artists in Facebook.
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    {%endif %}
-                </div>
-                <div class="column">
+                        </div>
+                    </article>
                     {% if rec_list|length %}
                         {% for rec in rec_list %}
-                            <article class="media notification is-warning">
+                            <article class="media notification is-primary">
                                 <div class="media-content">
                                     <div class="content">
                                         <p>
@@ -148,6 +124,40 @@
                                     <p>
                                         Error: Couldn't find any recommendations. <br>
                                         You might need to like more films on Facebook.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    {%endif %}
+                </div>
+
+                <div class="column">
+                    {% if genre_list|length %}
+                        <article class="media notification is-warning">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="is-size-4">
+                                        Your favourites genres are the following:
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        {% for genre in genre_list %}
+                            <article class="media notification is-warning">
+                                <div class="media-content">
+                                    <div class="content has-text-centered">
+                                        <h2 class="title is-size-4">{{ genre }}</h2>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <article class="media notification is-danger">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        Error: Couldn't find any movie genres. <br>
+                                        You should like some artists in Facebook.
                                     </p>
                                 </div>
                             </div>

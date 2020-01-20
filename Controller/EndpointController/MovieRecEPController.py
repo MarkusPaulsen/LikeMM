@@ -52,7 +52,6 @@ class MovieRecEPController:
         return False
 
     def create_rec_list(self):
-        x=0
         self.rec_list = list(filter(
             lambda chart: self.check_list_contains(self.genre_list, [chart["themoviedb_genres"][0]]),
             self.chart_list

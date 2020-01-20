@@ -13,7 +13,7 @@ class UserGenresEPController:
             selection={"id": self.fid},
             projection={"themoviedb_genres": 1}
         ))
-        genre_list_of_lists = list(map(lambda genre_list: genre_list["themoviedb_genres"], query_element))
+        genre_list_of_lists = list(map(lambda genre_list: [genre_list["themoviedb_genres"][0]], query_element))
         genre_list_not_unique = [genre for genre_list in genre_list_of_lists for genre in genre_list]
         self.genre_list = list(set(genre_list_not_unique))
 
